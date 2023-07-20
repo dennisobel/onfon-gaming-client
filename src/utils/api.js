@@ -19,3 +19,21 @@ export const fetchDataFromApi = async (url, params) => {
         return err;
     }
 };
+
+export const fetchGames = async () => {
+    try {
+        const data = await axios.get("http://localhost:8080/games")
+        return data
+    } catch (error) {
+        return error
+    }
+}
+
+export const fetchGame = async (id) => {
+    try {
+        const data = await axios.get(`http://localhost:8080/games/${id}`)
+        return data
+    } catch (error) {
+        return error
+    }
+}

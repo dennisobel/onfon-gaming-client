@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import dayjs from "dayjs";
@@ -7,6 +7,8 @@ import "./style.scss";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import useFetch from "../../../hooks/useFetch";
+import useFetchGame from "../../../hooks/useFetchGame";
+import { fetchGame } from "../../../utils/api";
 import Genres from "../../../components/genres/Genres";
 import CircleRating from "../../../components/circleRating/CircleRating";
 import Img from "../../../components/lazyLoadImage/Img.jsx";
@@ -18,9 +20,19 @@ import Demobtn from "../Demobtn";
 const DetailsBanner = ({ video, crew }) => {
     const [show, setShow] = useState(false);
     const [videoId, setVideoId] = useState(null);
+    const [dets,setDets] = useState()
 
     const { mediaType, id } = useParams();
     const { data, loading } = useFetch(`/${mediaType}/${id}`);
+
+    const gameDetails = async () => {
+        await fetchGame(id).then(({data}) => setDets(data))
+    }
+
+    useEffect(()=>{
+        gameDetails()
+    },[])
+
 
     const { url } = useSelector((state) => state.home);
 
@@ -105,6 +117,11 @@ const DetailsBanner = ({ video, crew }) => {
         return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
     };
 
+    const handlePlay = () => {
+        const newWindow = window.open(`http://localhost:3000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
+        newWindow.opener = null;    
+    }
+
     return (
         <div className="detailsBanner">
             {!loading ? (
@@ -113,13 +130,13 @@ const DetailsBanner = ({ video, crew }) => {
                         <React.Fragment>
                             <div className="backdrop-img">
                                 {/* <Img src={url.backdrop + dummy.backdrop_path} /> */}
-                                <Img src={dummy.backdrop_path} />
+                                <Img src={dets?.backdrop_path} />
                             </div>
                             <div className="opacity-layer"></div>
                             <ContentWrapper>
                                 <div className="content">
                                     <div className="left">
-                                        {dummy.poster_path ? (
+                                        {dets?.poster_path ? (
                                             // <Img
                                             //     className="posterImg"
                                             //     src={
@@ -130,7 +147,7 @@ const DetailsBanner = ({ video, crew }) => {
                                             <Img
                                             className="posterImg"
                                             src={
-                                                dummy.poster_path
+                                                dets.poster_path
                                             }
                                         />
                                         ) : (
@@ -143,13 +160,14 @@ const DetailsBanner = ({ video, crew }) => {
                                     <div className="right">
                                         <div className="title">
                                             {`${
-                                                dummy.name || dummy.title
+                                                dummy.name || dets?.title
                                             } (${dayjs(
                                                 dummy?.release_date
                                             ).format("YYYY")})`}
                                         </div>
                                         <div className="subtitle">
-                                            {dummy.tagline}
+                                            {/* {dummy.tagline} */}
+                                            Lorem ipsum dolor sit amet
                                         </div>
 
                                         <Genres dummy={_genres} />
@@ -160,15 +178,18 @@ const DetailsBanner = ({ video, crew }) => {
                                                     1
                                                 )}
                                             />
+                                            <a onClick={handlePlay}>
                                             <div
                                                 className="playbtn"
-                                                onClick={() => {
-                                                    setShow(true);
-                                                    setVideoId(video.key);
-                                                }}
+                                                // onClick={() => {
+                                                //     setShow(true);
+                                                //     setVideoId(video.key);
+                                                // }}
+                                                // onClick={handlePlay}
                                             >
                                                 <PlayIcon />
                                             </div>
+                                            </a>
 
                                             <div
                                                 className="demobtn"
@@ -186,7 +207,8 @@ const DetailsBanner = ({ video, crew }) => {
                                                 Overview
                                             </div>
                                             <div className="description">
-                                                {dummy.overview}
+                                                {/* {dummy.overview} */}
+                                                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                                             </div>
                                         </div>
 

@@ -10,7 +10,7 @@ import dummy from "../../../data";
 const Trending = () => {
     const [endpoint, setEndpoint] = useState("day");
 
-    const { data, loading } = useFetch(`/trending/movie/${endpoint}`);
+    const { data, loading, games } = useFetch(`/trending/movie/${endpoint}`);
 
     const onTabChange = (tab) => {
         setEndpoint(tab === "Day" ? "day" : "week");
@@ -19,10 +19,10 @@ const Trending = () => {
     return (
         <div className="carouselSection">
             <ContentWrapper>
-                <span className="carouselTitle">Trending</span>
+                <span className="carouselTitle">Games</span>
                 {/* <SwitchTabs data={["Day", "Week"]} onTabChange={onTabChange} /> */}
             </ContentWrapper>
-            <Carousel data={dummy?.results} loading={loading} />
+            <Carousel data={dummy?.results} loading={loading} games={games} />
         </div>
     );
 };
