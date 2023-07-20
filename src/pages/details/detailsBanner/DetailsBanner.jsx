@@ -116,9 +116,9 @@ const DetailsBanner = ({ video, crew }) => {
         const minutes = totalMinutes % 60;
         return `${hours}h${minutes > 0 ? ` ${minutes}m` : ""}`;
     };
-
+    const GAMES_URL = import.meta.env.GAMES_URL;
     const handlePlay = () => {
-        const newWindow = window.open(`http://localhost:3000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
+        const newWindow = window.open(`${GAMES_URL}/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
         newWindow.opener = null;    
     }
 
