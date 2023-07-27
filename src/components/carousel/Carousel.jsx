@@ -61,44 +61,6 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                 />
                 {!loading ? (
                     <div className="carouselItems" ref={carouselContainer}>
-                        {/* {data?.map((item) => {
-                            const posterUrl = item.poster_path
-                                ? url.poster + item.poster_path
-                                : PosterFallback;
-                            return (
-                                <div
-                                    key={item.id}
-                                    className="carouselItem"
-                                    onClick={() =>
-                                        navigate(
-                                            `/${item.media_type || endpoint}/${
-                                                item.id
-                                            }`
-                                        )
-                                    }
-                                >
-                                    <div className="posterBlock">
-                                        <Img src={item.poster_path} />
-                                        <CircleRating
-                                            rating={item.vote_average.toFixed(
-                                                1
-                                            )}
-                                        />
-                                    </div>
-                                    <div className="textBlock">
-                                        <span className="title">
-                                            {item.title || item.name}
-                                        </span>
-                                        <span className="date">
-                                            {dayjs(item.release_date || item.first_air_date).format(
-                                                "MMM D, YYYY"
-                                            )}
-                                        </span>
-                                    </div>
-                                </div>
-                            );
-                        })} */}
-
                         {games?.data?.map((item,i) => {
                             const posterUrl = item.poster_path
                                 ? url.poster + item.poster_path
@@ -115,20 +77,18 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                 >
                                     <div className="posterBlock">
                                         <Img src={item.poster_path} />
+                                        <div>
                                         <CircleRating
                                             rating={1+i}
                                         />
+                                        </div>
+                                        
                                     </div>
-                                    <div className="textBlock">
+                                    {/* <div className="textBlock">
                                         <span className="title">
                                             {item.title || item.name}
                                         </span>
-                                        {/* <span className="date">
-                                            {dayjs(item.release_date || item.first_air_date).format(
-                                                "MMM D, YYYY"
-                                            )}
-                                        </span> */}
-                                    </div>
+                                    </div> */}
                                 </div>
                             );
                         })}

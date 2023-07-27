@@ -118,7 +118,7 @@ const DetailsBanner = ({ video, crew }) => {
     };
     const GAMES_URL = import.meta.env.GAMES_URL;
     const handlePlay = () => {
-        const newWindow = window.open(`${GAMES_URL}/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
+        const newWindow = window.open(`http://34.241.183.143:5000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
         newWindow.opener = null;    
     }
 
