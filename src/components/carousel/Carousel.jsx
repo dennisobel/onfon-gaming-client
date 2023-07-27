@@ -66,6 +66,7 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                 ? url.poster + item.poster_path
                                 : PosterFallback;
                             return (
+                                <>
                                 <div
                                     key={item._id}
                                     className="carouselItem"
@@ -84,12 +85,14 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                         </div>
                                         
                                     </div>
-                                    {/* <div className="textBlock">
+                                    <div className="textBlock">
                                         <span className="title">
                                             {item.title || item.name}
+                                            {/* Hi there my name is dennis obel */}
                                         </span>
-                                    </div> */}
+                                    </div>
                                 </div>
+                                </>
                             );
                         })}
                     </div>
