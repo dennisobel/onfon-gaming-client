@@ -16,7 +16,7 @@ import Genres from "../genres/Genres";
 import "./style.scss";
 
 const Carousel = ({ data, loading, endpoint, title, games }) => {
-    console.log("GAMES:",games)
+    console.log("GAMES:", games)
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
     const navigate = useNavigate();
@@ -51,23 +51,23 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
         <div className="carousel">
             <ContentWrapper>
                 {title && <div className="carouselTitle">{title}</div>}
-                <BsFillArrowLeftCircleFill
+                {/* <BsFillArrowLeftCircleFill
                     className="carouselLeftNav arrow"
                     onClick={() => navigation("left")}
                 />
                 <BsFillArrowRightCircleFill
                     className="carouselRighttNav arrow"
                     onClick={() => navigation("right")}
-                />
+                /> */}
                 {!loading ? (
                     <div className="carouselItems" ref={carouselContainer}>
-                        {games?.data?.map((item,i) => {
+                        {games?.data?.map((item, i) => {
                             const posterUrl = item.poster_path
                                 ? url.poster + item.poster_path
                                 : PosterFallback;
                             return (
                                 <>
-                                <div
+                                    {/* <div
                                     key={item._id}
                                     className="carouselItem"
                                     onClick={() =>
@@ -88,10 +88,34 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                     <div className="textBlock">
                                         <span className="title">
                                             {item.title || item.name}
-                                            {/* Hi there my name is dennis obel */}
                                         </span>
                                     </div>
-                                </div>
+                                </div> */}
+
+                                    <div
+                                        key={item._id}
+                                        className="carouselItem"
+                                        onClick={() =>
+                                            navigate(
+                                                `/${item._id}`
+                                            )
+                                        }
+                                    >
+                                        <div className="posterBlock">
+                                            <Img src={item.poster_path} />
+                                            <div>
+                                                <CircleRating
+                                                    rating={1 + i}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="textBlock">
+                                            <span className="title">
+                                                {item.title || item.name}
+                                            </span>
+                                        </div>
+                                    </div>
+
                                 </>
                             );
                         })}
