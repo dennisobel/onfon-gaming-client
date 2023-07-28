@@ -266,15 +266,9 @@
     
                 .title {
                     font-size: 12px;
-<<<<<<< HEAD
-                    margin-bottom: 10px;
-                    line-height: 34px;
-                    // @include ellipsis(1);
-=======
                     line-height: 34px;
                     // @include ellipsis(1);
     
->>>>>>> 6ee623581e375176276872422f5140f42b0aa45a
                     @include md {
                         font-size: 20px;
                     }
