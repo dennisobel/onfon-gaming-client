@@ -188,7 +188,8 @@
         }
     
         .carouselItem {
-            width: 23.5rem;
+            max-width: 400px;
+            width: 100%;
             padding: 1px;
             cursor: pointer;
 
