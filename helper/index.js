@@ -2,7 +2,8 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 // axios.defaults.baseURL = import.meta.env.REACT_APP_BASE_URL;
-axios.defaults.baseURL = "http://localhost:8080"
+const GAMES_URL = import.meta.env.GAMES_URL;
+axios.defaults.baseURL = GAMES_URL
 
 /** Make API Requests */
 
