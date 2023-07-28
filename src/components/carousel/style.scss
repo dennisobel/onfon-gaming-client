@@ -172,14 +172,14 @@
     .carouselItems {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
+        gap: 30px;
         overflow-y: hidden;
         margin-right: -20px;
         margin-left: -20px;
-        padding: 0 20px;
+        // padding: 0 20px;
     
         @include md {
-            // gap: 20px;
+            // gap: 50px;
             overflow: hidden;
             margin: 0;
             padding: 0;
@@ -188,7 +188,7 @@
         }
     
         .carouselItem {
-            width: 175px;
+            width: 360px;
             padding: 1px;
             cursor: pointer;
 
@@ -199,6 +199,7 @@
     
             @include md {
                 width: 100%;
+                // width: 325px;
             }
     
             flex-shrink: 0;
