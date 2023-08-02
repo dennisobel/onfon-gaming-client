@@ -16,6 +16,7 @@ const initialState = {
     otp: "",
   },
   user: {},
+  
 };
 export const globalSlice = createSlice({
   name: "global",
@@ -43,6 +44,7 @@ export const globalSlice = createSlice({
 });
 
 export const {
+    setQuery,
     setMode,
     setIsAuthenticated,
     setSignup,
