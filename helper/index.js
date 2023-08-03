@@ -18,7 +18,7 @@ export async function getUsername() {
 /** authenticate function */
 export async function authenticate(email) {
   try {
-    return await axios.post("http://34.241.183.143:8080/users/authenticate", { email });
+    return await axios.post("http://dashboard.epicgames.co.ke:8080/users/authenticate", { email });
   } catch (error) {
     return { error: "Username doesn't exist...!" };
   }
@@ -27,7 +27,7 @@ export async function authenticate(email) {
 /** get User details */
 export async function getUser({ email }) {
   try {
-    const { data } = await axios.get(`http://34.241.183.143:8080/users/user/${email}`);
+    const { data } = await axios.get(`http://dashboard.epicgames.co.ke:8080/users/user/${email}`);
     return { data };
   } catch (error) {
     return { error: "Password doesn't Match...!" };
@@ -40,7 +40,7 @@ export async function registerUser(credentials) {
     const {
       data: { msg },
       status,
-    } = await axios.post(`http://34.241.183.143:8080/users/register`, credentials);
+    } = await axios.post(`http://dashboard.epicgames.co.ke:8080/users/register`, credentials);
 
     let { email } = credentials;
 
@@ -59,7 +59,7 @@ export async function registerUser(credentials) {
 export async function verifyPassword({ email, password }) {
   try {
     if (email) {
-      const { data } = await axios.post("http://34.241.183.143:8080/users/login", { email, password });
+      const { data } = await axios.post("http://dashboard.epicgames.co.ke:8080/users/login", { email, password });
       return Promise.resolve({ data });
     }
   } catch (error) {
@@ -71,7 +71,7 @@ export async function verifyPassword({ email, password }) {
 export async function updateUser(response) {
   try {
     const token = await localStorage.getItem("token");
-    const data = await axios.put("http://34.241.183.143:8080/users/updateuser", response, {
+    const data = await axios.put("http://dashboard.epicgames.co.ke:8080/users/updateuser", response, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -87,7 +87,7 @@ export async function generateOTP(msisdn) {
     const {
       data: { code },
       status,
-    } = await axios.post("http://34.241.183.143:8080/users/generateOTP", { msisdn });
+    } = await axios.post("http://dashboard.epicgames.co.ke:8080/users/generateOTP", { msisdn });
 
     // send mail with the OTP
     if (status === 201) {
@@ -95,7 +95,7 @@ export async function generateOTP(msisdn) {
         data: { msisdn },
       } = await getUser({ msisdn });
       let text = `Your Password Recovery OTP is ${code}. Verify and recover your password.`;
-      await axios.post("http://34.241.183.143:8080/auth/registerMail", {
+      await axios.post("http://dashboard.epicgames.co.ke:8080/auth/registerMail", {
         userEmail: msisdn,
         text,
         subject: "Password Recovery OTP",
@@ -110,7 +110,7 @@ export async function generateOTP(msisdn) {
 /** verify OTP */
 export async function verifyOTP({ msisdn, code }) {
   try {
-    const { data, status } = await axios.get("http://34.241.183.143:8080/users/verifyOTP", {
+    const { data, status } = await axios.get("http://dashboard.epicgames.co.ke:8080/users/verifyOTP", {
       params: { msisdn, code },
     });
     return { data, status };
@@ -122,7 +122,7 @@ export async function verifyOTP({ msisdn, code }) {
 /** reset password */
 export async function resetPassword({ email, password }) {
   try {
-    const { data, status } = await axios.put("http://34.241.183.143:8080/users/resetPassword", {
+    const { data, status } = await axios.put("http://dashboard.epicgames.co.ke:8080/users/resetPassword", {
       email,
       password,
     });
@@ -136,7 +136,7 @@ export async function resetPassword({ email, password }) {
 export async function sendMail({ to, from, name, email_body }) {
   try {
     const token = await localStorage.getItem("token");
-    const res = await axios.post(`http://34.241.183.143:8080/user/send-mail/`, {
+    const res = await axios.post(`http://dashboard.epicgames.co.ke:8080/user/send-mail/`, {
       to,
       from,
       name,
@@ -152,7 +152,7 @@ export async function sendMail({ to, from, name, email_body }) {
 /** register user function */
 export async function getGames(data) {
   try {
-    const res = await axios.get(`http://34.241.183.143:8080/games`);
+    const res = await axios.get(`http://dashboard.epicgames.co.ke:8080/games`);
     return Promise.resolve(res);
   } catch (error) {
     return Promise.reject({ error });
