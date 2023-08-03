@@ -172,7 +172,7 @@
     .carouselItems {
         display: flex;
         flex-wrap: wrap;
-        gap: 70px;
+        gap: 30px;
         overflow-y: hidden;
         margin-right: -20px;
         margin-left: -20px;
@@ -184,7 +184,7 @@
             margin: 0;
             padding: 0;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         }
     
         .carouselItem {
@@ -196,7 +196,7 @@
             overflow-y: hidden;
             margin-right: -40px;
             margin-left: 0px;
-            padding: 0 40px;
+            padding: 0 20px;
     
             @include md {
                 width: 100%;
