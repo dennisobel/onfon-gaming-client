@@ -120,7 +120,8 @@ const DetailsBanner = ({ video, crew }) => {
     const handlePlay = () => {
         console.log(dets?.homepage)
         // const newWindow = window.open(`http://34.241.183.143:5000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
-        const newWindow = window.open(`http://api.epicgames.co.ke:5000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
+        // const newWindow = window.open(`http://api.epicgames.co.ke:5000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
+        const newWindow = window.open(`http://api.epicgames.co.ke/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
         // const newWindow = window.open(`http://games.somwaki.com:5000/${dets?.homepage}`, '_blank', 'noopener,noreferrer,location=no');
         // const newWindow = window.open(`https://api.epicgames.co.ke/9`, '_blank', 'noopener,noreferrer,location=no');
         // const newWindow = window.open(`https://google.com`, '_blank', 'noopener,noreferrer,location=no');
