@@ -23,7 +23,7 @@ export const fetchDataFromApi = async (url, params) => {
 
 export const fetchGames = async () => {
     try {
-        const data = await axios.get(`http://dashboard.epicgames.co.ke/games`)
+        const data = await axios.get(`http://dashboard.epicgames.co.ke:8080/games`)
         return data
     } catch (error) {
         return error
@@ -32,7 +32,7 @@ export const fetchGames = async () => {
 
 export const fetchGame = async (id) => {
     try {
-        const data = await axios.get(`http://dashboard.epicgames.co.ke/games/${id}`)
+        const data = await axios.get(`http://dashboard.epicgames.co.ke:8080/games/${id}`)
         return data
     } catch (error) {
         return error

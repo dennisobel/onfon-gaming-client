@@ -32,7 +32,7 @@ const Trending = () => {
         console.log("query",query);
         console.log("games:",games)
     
-        let res = games?.data.filter(el => {
+        let res = games !== undefined && games?.data.filter(el => {
             return el?.title?.toLowerCase() === query?.toLowerCase();
         });
     
