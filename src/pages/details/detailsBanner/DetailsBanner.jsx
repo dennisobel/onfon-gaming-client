@@ -127,7 +127,7 @@ const DetailsBanner = ({ video, crew }) => {
         // const newWindow = window.open(`https://google.com`, '_blank', 'noopener,noreferrer,location=no');
         // https://api.epicgames.co.ke/
         // newWindow.opener = null; 
-        const newURL = `http://api.epicgames.co.ke/${dets?.homepage}`;
+        const newURL = `http://api.epicgames.co.ke:5000/${dets?.homepage}`;
         window.location.href = newURL;
     }
 

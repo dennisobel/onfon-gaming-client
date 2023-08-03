@@ -18,16 +18,27 @@ const Trending = () => {
 
     useEffect(() => {
         console.log("query",query);
+        console.log("games:",games)
     
         let res = games?.data.filter(el => {
             return el?.title?.toLowerCase() === query?.toLowerCase();
         });
     
-        console.log("rs:", res);
-    
         setFiltered(res);
     
     }, [games, query]);
+
+    useEffect(() => {
+        console.log("query",query);
+        console.log("games:",games)
+    
+        let res = games?.data.filter(el => {
+            return el?.title?.toLowerCase() === query?.toLowerCase();
+        });
+    
+        setFiltered(res);
+    
+    }, [query]);
     
 
     const res = query !== "" ? filtered : games?.data
