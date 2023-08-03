@@ -9,12 +9,24 @@ import dummy from "../../../data";
 
 import { useSelector } from "react-redux";
 
+import { fetchGames } from "../../../utils/api";
+
 const Trending = () => {
     const [endpoint, setEndpoint] = useState("day");
     const [filtered, setFiltered] = useState()
     const { query } = useSelector((state) => state.home);
 
-    const { data, loading, games } = useFetch(`/trending/movie/${endpoint}`);
+    const [games,setGames] = useState()
+
+    const { data, loading } = useFetch(`/trending/movie/${endpoint}`);
+
+    const getGames = () => {
+        fetchGames().then(res => setGames(res))
+    }
+
+    useEffect(()=>{
+        getGames()
+    },[])
 
     useEffect(() => {
         console.log("query",query);
@@ -29,8 +41,6 @@ const Trending = () => {
     }, [games, query]);    
 
     const res = query !== "" ? filtered : games?.data
-    // console.log(res)
-
 
     const onTabChange = (tab) => {
         setEndpoint(tab === "Day" ? "day" : "week");
