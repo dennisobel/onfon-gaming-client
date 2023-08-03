@@ -87,7 +87,7 @@ const OTP = () => {
       let { status } = await verifyOTP({ msisdn: user.msisdn, code: formValues.code })
       if (status === 201) {
         toast.success('Verify Successfully!')
-        navigate("/")
+        navigate("/home")
       }
     }
   };
