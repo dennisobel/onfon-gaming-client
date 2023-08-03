@@ -65,9 +65,9 @@ function App() {
             {/* <Header /> */}
             <Routes>
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
                 <Route path="/otp" element={user ? <OTP/> : <Navigate to="/login"/>} />
-                <Route path="/home" element={user ? <Home /> : <Navigate to="/login"/>} />
+                <Route path="/" element={<Home />} />
                 {/* <Route path="/:mediaType/:id" element={<Details />} /> */}
                 <Route path="/:id" element={user ? <Details /> : <Navigate to="/login"/>} />
                 <Route path="/search/:query" element={user ? <SearchResult /> : <Navigate to="/login"/>} />
