@@ -89,9 +89,11 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                         key={item._id}
                                         className="carouselItem"
                                         onClick={() =>
-                                            navigate(
-                                                `/${item._id}`
-                                            )
+                                            // navigate(
+                                            //     `/${item._id}`
+                                            // )
+                                            
+                                            window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                         }
                                     >
                                         <div className="posterBlock">

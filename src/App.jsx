@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getApiConfiguration, getGenres } from "./store/homeSlice";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
-import Details from "./pages/details/Details";
+// import Details from "./pages/details/Details";
 // import Header from "./components/header/Header";
 // import SearchResult from "./pages/searchResult/SearchResult";
 // import Explore from "./pages/explore/Explore";
@@ -62,7 +62,7 @@ function App() {
                 <Route path="/otp" element={user ? <OTP/> : <Navigate to="/login"/>} /> */}
                 <Route path="/" element={<Home />} />
                 {/* <Route path="/:mediaType/:id" element={<Details />} /> */}
-                <Route path="/:id" element={user ? <Details /> : <Navigate to="/login"/>} />
+                {/* <Route path="/:id" element={user ? <Details /> : <Navigate to="/login"/>} /> */}
                 {/* <Route path="/search/:query" element={user ? <SearchResult /> : <Navigate to="/login"/>} />
                 <Route path="/explore/:mediaType" element={user ? <Explore /> : <Navigate to="/login"/>} /> */}
                 <Route path="*" element={<PageNotFound />} />
