@@ -7,7 +7,7 @@ import "./style.scss";
 
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 import useFetch from "../../../hooks/useFetch";
-import useFetchGame from "../../../hooks/useFetchGame";
+// import useFetchGame from "../../../hooks/useFetchGame";
 import { fetchGame } from "../../../utils/api";
 import Genres from "../../../components/genres/Genres";
 import CircleRating from "../../../components/circleRating/CircleRating";
@@ -127,7 +127,7 @@ const DetailsBanner = ({ video, crew }) => {
         // const newWindow = window.open(`https://google.com`, '_blank', 'noopener,noreferrer,location=no');
         // https://api.epicgames.co.ke/
         // newWindow.opener = null; 
-        const newURL = `http://api.epicgames.co.ke:5000/${dets?.homepage}`;
+        const newURL = `http://api.epicgames.co.ke/${dets?.homepage}/`;
         window.location.href = newURL;
     }
 
