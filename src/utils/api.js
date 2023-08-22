@@ -38,3 +38,11 @@ export const fetchGame = async (id) => {
         return error
     }
 }
+
+export const gameRegister = async (data) => {
+    try {
+        const res = await axios.post(`https://dashboard.epicgames.co.ke/game_play`, data)
+    } catch (error) {
+        
+    }
+}

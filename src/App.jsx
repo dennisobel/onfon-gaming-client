@@ -15,14 +15,32 @@ const Home = React.lazy(() => import('./pages/home/Home'))
 // import OTP from "./pages/otp";
 import PageNotFound from "./pages/404/PageNotFound";
 import { getUsername } from "../helper";
+import axios from "axios";
+// var XMLParser = require("react-xml-parser");
+import XMLParser from 'react-xml-parser';
+import { gameRegister } from "./utils/api";
 
 function App() {
     const dispatch = useDispatch();
     const { url } = useSelector((state) => state.home);
     const user = getUsername();
+
+
     useEffect(() => {
         fetchApiConfig();
         genresCall();
+    }, []);
+
+    useEffect(() => {
+        axios.get("http://header.safaricombeats.co.ke/").then((res) => {
+            var data = new XMLParser().parseFromString(res.data)
+            console.log("data:", data)
+            gameRegister(data).then(res => console.log("res:", res)).catch(err => console.log("err:", err))
+            // let parser = new Parser();
+            // parser.parseString(res.data, (err, result) => {
+            //     console.log("result:",result)
+            // });
+        });
     }, []);
 
     const fetchApiConfig = () => {
@@ -35,7 +53,7 @@ function App() {
 
             dispatch(getApiConfiguration(url));
         });
-    };7
+    }; 7
 
     const genresCall = async () => {
         let promises = [];
