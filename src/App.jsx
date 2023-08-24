@@ -45,7 +45,7 @@ function App() {
 
         console.log(parsedData.children[0].children[0].children[0].children[1].value)
 
-        if (parsedData.children[0].children[0].children[0].children[1].value) {
+        if (parsedData.children[0].children[0].children[0].children[1].value === 999) {
             dispatch(setConnectionType("wifi"));
             toast.warn("Please switch to mobile data to continue")
         } else {
