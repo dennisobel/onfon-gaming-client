@@ -44,11 +44,14 @@ function App() {
         parsedData["ip"] = res.data.ip;
 
         console.log(parsedData.children[0].children[0].children[0].children[1].value)
+        console.log(parsedData)
 
-        if (parsedData.children[0].children[0].children[0].children[1].value === 999) {
+        if (parsedData.children[0].children[0].children[0].children[1].value === "999") {
+            console.log("wifi")
             dispatch(setConnectionType("wifi"));
             toast.warn("Please switch to mobile data to continue")
         } else {
+            console.log("mobile")
             dispatch(setConnectionType("mobile"));
         }
         // setData(parsedData);
