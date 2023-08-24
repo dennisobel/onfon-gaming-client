@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { fetchDataFromApi } from "./utils/api";
 import { useSelector, useDispatch } from "react-redux";
-import { getApiConfiguration, getGenres } from "./store/homeSlice";
+import { getApiConfiguration, getGenres, setConnectionType } from "./store/homeSlice";
 import Footer from "./components/footer/Footer";
 // import Home from "./pages/home/Home";
 const Home = React.lazy(() => import('./pages/home/Home'))
@@ -20,28 +20,37 @@ import axios from "axios";
 import XMLParser from 'react-xml-parser';
 import { gameRegister } from "./utils/api";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
     const dispatch = useDispatch();
-    const { url } = useSelector((state) => state.home);
-    const user = getUsername();
-
-
+    // const { url } = useSelector((state) => state.home);
+    // const user = getUsername();
+    // const [ip, setIP] = useState();
+    // const [data, setData] = useState();
     useEffect(() => {
-        fetchApiConfig();
-        genresCall();
+        fetchData();
     }, []);
 
-    useEffect(() => {
-        axios.get("http://header.safaricombeats.co.ke/").then((res) => {
-            var data = new XMLParser().parseFromString(res.data)
-            console.log("data:", data)
-            gameRegister(data).then(res => console.log("res:", res)).catch(err => console.log("err:", err))
-            // let parser = new Parser();
-            // parser.parseString(res.data, (err, result) => {
-            //     console.log("result:",result)
-            // });
-        });
-    }, []);
+    const fetchData = async () => {
+        const res = await axios.get("https://api.ipify.org/?format=json");
+        // setIP(res.data.ip);
+        const headerRes = await axios.get("http://header.safaricombeats.co.ke/");
+        const parsedData = new XMLParser().parseFromString(headerRes.data);
+        parsedData["ip"] = res.data.ip;
+
+        console.log(parsedData.children[0].children[0].children[0].children[1].value)
+
+        if (parsedData.children[0].children[0].children[0].children[1].value) {
+            dispatch(setConnectionType("wifi"));
+            toast.warn("Please switch to mobile data to continue")
+        } else {
+            dispatch(setConnectionType("mobile"));
+        }
+        // setData(parsedData);
+        gameRegister(parsedData).then().catch(err => console.log("err:", err));
+    };
 
     const fetchApiConfig = () => {
         fetchDataFromApi("/configuration").then((res) => {
@@ -53,7 +62,7 @@ function App() {
 
             dispatch(getApiConfiguration(url));
         });
-    }; 7
+    };
 
     const genresCall = async () => {
         let promises = [];
@@ -73,22 +82,25 @@ function App() {
     };
 
     return (
-        <BrowserRouter>
-            {/* <Header /> */}
-            <Routes>
-                {/* <Route path="/signup" element={<Signup />} />
+        <>
+            <ToastContainer />
+            <BrowserRouter>
+                {/* <Header /> */}
+                <Routes>
+                    {/* <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/otp" element={user ? <OTP/> : <Navigate to="/login"/>} /> */}
-                <Route path="/" element={<Home />} />
-                {/* <Route path="/:mediaType/:id" element={<Details />} /> */}
-                {/* <Route path="/:id" element={user ? <Details /> : <Navigate to="/login"/>} /> */}
-                {/* <Route path="/search/:query" element={user ? <SearchResult /> : <Navigate to="/login"/>} />
+                    <Route path="/" element={<Home />} />
+                    {/* <Route path="/:mediaType/:id" element={<Details />} /> */}
+                    {/* <Route path="/:id" element={user ? <Details /> : <Navigate to="/login"/>} /> */}
+                    {/* <Route path="/search/:query" element={user ? <SearchResult /> : <Navigate to="/login"/>} />
                 <Route path="/explore/:mediaType" element={user ? <Explore /> : <Navigate to="/login"/>} /> */}
-                <Route path="*" element={<PageNotFound />} />
-            </Routes>
+                    <Route path="*" element={<PageNotFound />} />
+                </Routes>
 
-            <Footer />
-        </BrowserRouter>
+                <Footer />
+            </BrowserRouter>
+        </>
     );
 }
 

@@ -29,8 +29,8 @@ const Trending = () => {
     },[])
 
     useEffect(() => {
-        console.log("query",query);
-        console.log("games:",games)
+        // console.log("query",query);
+        // console.log("games:",games)
     
         let res = games !== undefined && games?.data.filter(el => {
             return el?.title?.toLowerCase() === query?.toLowerCase();

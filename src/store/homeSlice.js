@@ -6,6 +6,7 @@ export const homeSlice = createSlice({
     url: {},
     genres: {},
     query: "",
+    connection_type: "",
   },
   reducers: {
     getApiConfiguration: (state, action) => {
@@ -17,10 +18,13 @@ export const homeSlice = createSlice({
     setQuery: (state, action) => {
       state.query = action.payload;
     },
+    setConnectionType: (state, action) => {
+      state.connection_type = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { getApiConfiguration, getGenres, setQuery } = homeSlice.actions;
+export const { getApiConfiguration, getGenres, setQuery,setConnectionType } = homeSlice.actions;
 
 export default homeSlice.reducer;
