@@ -1,24 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { fetchDataFromApi } from "./utils/api";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getApiConfiguration, getGenres, setConnectionType } from "./store/homeSlice";
 import Footer from "./components/footer/Footer";
 import { headless } from "./utils/api";
 
-// import Home from "./pages/home/Home";
 const Home = React.lazy(() => import('./pages/home/Home'))
-// import Details from "./pages/details/Details";
-// import Header from "./components/header/Header";
-// import SearchResult from "./pages/searchResult/SearchResult";
-// import Explore from "./pages/explore/Explore";
-// import Signup from "./pages/signup/Signup";
-// import Login from "./pages/login/Login";
-// import OTP from "./pages/otp";
 import PageNotFound from "./pages/404/PageNotFound";
-import { getUsername } from "../helper";
 import axios from "axios";
-// var XMLParser = require("react-xml-parser");
 import XMLParser from 'react-xml-parser';
 import { gameRegister } from "./utils/api";
 
@@ -27,10 +17,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const dispatch = useDispatch();
-    // const { url } = useSelector((state) => state.home);
-    // const user = getUsername();
-    // const [ip, setIP] = useState();
-    // const [data, setData] = useState();
     useEffect(() => {
         fetchData();
     }, []);
@@ -58,34 +44,6 @@ function App() {
         gameRegister(parsedData).then().catch(err => console.log("err:", err));
     };
 
-    const fetchApiConfig = () => {
-        fetchDataFromApi("/configuration").then((res) => {
-            const url = {
-                backdrop: res.images.secure_base_url + "original",
-                poster: res.images.secure_base_url + "original",
-                profile: res.images.secure_base_url + "original",
-            };
-
-            dispatch(getApiConfiguration(url));
-        });
-    };
-
-    const genresCall = async () => {
-        let promises = [];
-        let endPoints = ["tv", "movie"];
-        let allGenres = {};
-
-        endPoints.forEach((url) => {
-            promises.push(fetchDataFromApi(`/genre/${url}/list`));
-        });
-
-        const data = await Promise.all(promises);
-        data.map(({ genres }) => {
-            return genres.map((item) => (allGenres[item.id] = item));
-        });
-
-        dispatch(getGenres(allGenres));
-    };
 
     return (
         <>

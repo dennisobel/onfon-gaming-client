@@ -16,21 +16,6 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
     const { connection_type } = useSelector((state) => state.home);
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
-    const navigate = useNavigate();
-
-    const navigation = (dir) => {
-        const container = carouselContainer.current;
-
-        const scrollAmount =
-            dir === "left"
-                ? container.scrollLeft - (container.offsetWidth + 20)
-                : container.scrollLeft + (container.offsetWidth + 20);
-
-        container.scrollTo({
-            left: scrollAmount,
-            behavior: "smooth",
-        });
-    };
 
     const skItem = () => {
         return (
@@ -51,14 +36,6 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
             <div className="carousel">
                 <ContentWrapper>
                     {title && <div className="carouselTitle">{title}</div>}
-                    {/* <BsFillArrowLeftCircleFill
-                    className="carouselLeftNav arrow"
-                    onClick={() => navigation("left")}
-                />
-                <BsFillArrowRightCircleFill
-                    className="carouselRighttNav arrow"
-                    onClick={() => navigation("right")}
-                /> */}
                     {!loading ? (
                         <div className="carouselItems" ref={carouselContainer}>
                             {games?.map((item, i) => {

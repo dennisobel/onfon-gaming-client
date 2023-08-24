@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import Carousel from "../../../components/carousel/Carousel";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
-import SwitchTabs from "../../../components/switchTabs/SwitchTabs";
 
 import useFetch from "../../../hooks/useFetch";
 import dummy from "../../../data";
@@ -28,10 +27,7 @@ const Trending = () => {
         getGames()
     },[])
 
-    useEffect(() => {
-        // console.log("query",query);
-        // console.log("games:",games)
-    
+    useEffect(() => {    
         let res = games !== undefined && games?.data.filter(el => {
             return el?.title?.toLowerCase() === query?.toLowerCase();
         });
@@ -42,9 +38,6 @@ const Trending = () => {
 
     const res = query !== "" ? filtered : games?.data
 
-    const onTabChange = (tab) => {
-        setEndpoint(tab === "Day" ? "day" : "week");
-    };
 
     return (
         <div className="carouselSection">
