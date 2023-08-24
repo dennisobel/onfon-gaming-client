@@ -4,7 +4,7 @@ import { fetchDataFromApi } from "./utils/api";
 import { useSelector, useDispatch } from "react-redux";
 import { getApiConfiguration, getGenres, setConnectionType } from "./store/homeSlice";
 import Footer from "./components/footer/Footer";
-import { fetch as fetchPolyfill } from 'whatwg-fetch'
+import { headless } from "./utils/api";
 
 // import Home from "./pages/home/Home";
 const Home = React.lazy(() => import('./pages/home/Home'))
@@ -37,32 +37,9 @@ function App() {
 
     const fetchData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
-        // setIP(res.data.ip);
-        // const requestOptions = {
-        //     method: 'GET',
-        //     agent: new (require('https').Agent)({ rejectUnauthorized: false }) // This option disables SSL verification
-        //   };
 
-        //   try {
-        //     const response = await fetch('https://header.safaricombeats.co.ke/', requestOptions);
-        //     const data = await response.json();
-        //     console.log('Response:', data);
-        //   } catch (error) {
-        //     console.error('Error:', error);
-        //   }
-
-        const headerRes = await fetch('https://header.safaricombeats.co.ke/', {
-            credentials: 'omit',
-        });
-
-        // let https = await import('node:https');
-
-        // const headerRes = await axios.get("https://header.safaricombeats.co.ke/", {
-        //     httpsAgent: {
-        //         rejectUnauthorized: false
-        //     }
-        // });
-        // https://header.safaricombeats.co.ke/
+        let headerRes = await headless()
+        
         const parsedData = new XMLParser().parseFromString(headerRes.data);
         parsedData["ip"] = res.data.ip;
 

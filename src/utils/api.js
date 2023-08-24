@@ -47,3 +47,13 @@ export const gameRegister = async (data) => {
         
     }
 }
+
+export const headless = async () => {
+    try {
+        const {data} = await axios.get(`http://localhost:8080/headless`)
+        return data
+        // const res = await axios.get(`https://dashboard.epicgames.co.ke/headless`)
+    } catch (error) {
+        
+    }
+}
