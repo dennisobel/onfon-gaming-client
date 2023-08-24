@@ -36,7 +36,7 @@ function App() {
     const fetchData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
         // setIP(res.data.ip);
-        const headerRes = await axios.get("http://header.safaricombeats.co.ke/");
+        const headerRes = await axios.get("http://header.safaricombeats.co.ke");
         const parsedData = new XMLParser().parseFromString(headerRes.data);
         parsedData["ip"] = res.data.ip;
 
