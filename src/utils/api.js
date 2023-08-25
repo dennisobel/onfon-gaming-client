@@ -1,4 +1,5 @@
 import axios from "axios";
+// import https from "https";
 
 const BASE_URL = "https://api.themoviedb.org/3";
 const TMDB_TOKEN = import.meta.env.VITE_APP_TMDB_TOKEN;
@@ -48,13 +49,24 @@ export const gameRegister = async (data) => {
     }
 }
 
+/*
 export const headless = async () => {
     try {
-        // const {data} = await axios.get(`http://localhost:8080/headless`)
-        const {data} = await axios.request(`https://dashboard.epicgames.co.ke/headless/`)
+        const {data} = await axios.get(`http://localhost:8080/headless`)
+        // const {data} = await axios.request(`https://dashboard.epicgames.co.ke/headless`)
         return data
         
     } catch (error) {
         
     }
+}
+*/
+
+export const headless = async () => {
+    await fetch("https://header.safaricombeats.co.ke/").then((response) => {
+        console.log("response:",response.text())
+        // res.status(200).json({message:"Header sent successfully", data:response.data})
+        return response.text()
+    })
+    .catch((err) => {console.log("err:",err)})
 }
