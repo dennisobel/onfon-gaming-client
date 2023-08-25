@@ -17,7 +17,7 @@ import PageNotFound from "./pages/404/PageNotFound";
 import axios from "axios";
 import XMLParser from 'react-xml-parser';
 import { gameRegister } from "./utils/api";
-const proxyUrl = 'https://34.241.183.143:8000/proxy'; 
+// const proxyUrl = 'http://localhost:3002/proxy'; 
 
 function App() {
     const dispatch = useDispatch();
@@ -40,7 +40,7 @@ function App() {
         const res = await axios.get("https://api.ipify.org/?format=json");
 
         // let headerRes = headless()
-        let headerRes = await fetch(proxyUrl).then(res => res.text())
+        let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
         // console.log(headerRes)
 
         const parsedData = new XMLParser().parseFromString(headerRes);
