@@ -4,7 +4,7 @@ import { fetchDataFromApi } from "./utils/api";
 import { useDispatch } from "react-redux";
 import { getApiConfiguration, getGenres, setConnectionType } from "./store/homeSlice";
 import Footer from "./components/footer/Footer";
-import { headless } from "./utils/api";
+// import { headless } from "./utils/api";
 import Button from '@mui/material/Button';
 import { Dialog } from "@mui/material";
 import DialogActions from '@mui/material/DialogActions';
