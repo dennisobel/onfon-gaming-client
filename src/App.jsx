@@ -17,7 +17,7 @@ import PageNotFound from "./pages/404/PageNotFound";
 import axios from "axios";
 import XMLParser from 'react-xml-parser';
 import { gameRegister } from "./utils/api";
-const proxyUrl = 'http://34.241.183.143:8000/proxy'; 
+const proxyUrl = 'https://34.241.183.143:8000/proxy'; 
 
 function App() {
     const dispatch = useDispatch();
