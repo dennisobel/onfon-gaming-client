@@ -50,7 +50,6 @@ const Home = () => {
             {/* <Header /> */}
             <div className="homePage">
                 <HeroBanner />
-                <p>Connection Type: {connectionType}</p>
                 <Trending />
             </div>
         </>

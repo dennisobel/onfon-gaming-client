@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -19,6 +19,7 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
     const { connection_type } = useSelector((state) => state.home);
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
+    const [connectionType, setConnectionType] = useState('unknown');
 
     const [modalOpen, setModalOpen] = useState(false)
 
@@ -29,6 +30,46 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
     const handleModalClose = () => {
         setModalOpen(false)
     }
+
+    useEffect(() => {
+        console.log("protocol:", window.location.protocol)
+        const networkInformation = navigator.connection;
+        console.log("type:", navigator.connection)
+        console.log("type:", navigator.mozConnection)
+        console.log("type:", navigator.webkitConnection)
+
+        const updateConnectionType = () => {
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+
+            if (connection) {
+                const type = connection.type;
+                // console.log(type)
+                setConnectionType(type);
+            }
+        };
+
+        updateConnectionType();
+
+        navigator.connection.addEventListener('change', updateConnectionType);
+
+        return () => {
+            navigator.connection.removeEventListener('change', updateConnectionType);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (connectionType === "wifi") {
+            // The user is connected to WiFi.
+            handleModalOpen()
+            console.log("on wifi")
+        } else if (connectionType === "cellular") {
+            // The user is connected to cellular data.
+            console.log("on mobile")
+        } else {
+            // The user is not connected to any network.
+        }
+    }, [connectionType]);
 
     const skItem = () => {
         return (
@@ -87,7 +128,7 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                                 // navigate(
                                                 //     `/${item._id}`
                                                 // )
-                                                connection_type === "wifi" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                                connectionType === "wifi" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                             }
                                         >
                                             <div className="posterBlock">

@@ -22,6 +22,7 @@ import { gameRegister } from "./utils/api";
 function App() {
     const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false)
+    const [connectionType, setConnectionType] = useState('unknown');
 
 
     const handleModalOpen = () => {
@@ -35,6 +36,47 @@ function App() {
     useEffect(() => {
         fetchData();
     }, []);
+
+    useEffect(() => {
+        console.log("protocol:", window.location.protocol)
+        const networkInformation = navigator.connection;
+        console.log("type:", navigator.connection)
+        console.log("type:", navigator.mozConnection)
+        console.log("type:", navigator.webkitConnection)
+
+        const updateConnectionType = () => {
+            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+
+            if (connection) {
+                const type = connection.type;
+                // console.log(type)
+                setConnectionType(type);
+            }
+        };
+
+        updateConnectionType();
+
+        navigator.connection.addEventListener('change', updateConnectionType);
+
+        return () => {
+            navigator.connection.removeEventListener('change', updateConnectionType);
+        };
+    }, []);
+
+    useEffect(() => {
+        console.log(connectionType)
+        if (connectionType === "wifi") {
+            // The user is connected to WiFi.
+            handleModalOpen()
+            console.log("on wifi")
+        } else if (connectionType === "cellular") {
+            // The user is connected to cellular data.
+            console.log("on mobile")
+        } else {
+            // The user is not connected to any network.
+        }
+    }, [connectionType]);
 
     const fetchData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
@@ -50,10 +92,10 @@ function App() {
         console.log(parsedData)
 
         if (parsedData.children[0].children[0].children[0].children[1].value === "999") {
-            console.log("wifi")
+            // console.log("wifi")
             dispatch(setConnectionType("wifi"));
             // toast.warn("Please switch to mobile data to continue")
-            handleModalOpen()
+            // handleModalOpen()
         } else {
             console.log("mobile")
             dispatch(setConnectionType("mobile"));
