@@ -1,10 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { fetchDataFromApi } from "./utils/api";
 import { useDispatch } from "react-redux";
 import { getApiConfiguration, getGenres, setConnectionType } from "./store/homeSlice";
 import Footer from "./components/footer/Footer";
 import { headless } from "./utils/api";
+import Button from '@mui/material/Button';
+import { Dialog } from "@mui/material";
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const Home = React.lazy(() => import('./pages/home/Home'))
 import PageNotFound from "./pages/404/PageNotFound";
@@ -17,6 +23,16 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
     const dispatch = useDispatch();
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const handleModalOpen = () => {
+        setModalOpen(true)
+    }
+
+    const handleModalClose = () => {
+        setModalOpen(false)
+    }
+    
     useEffect(() => {
         fetchData();
     }, []);
@@ -25,7 +41,7 @@ function App() {
         const res = await axios.get("https://api.ipify.org/?format=json");
 
         let headerRes = await headless()
-        
+
         const parsedData = new XMLParser().parseFromString(headerRes.data);
         parsedData["ip"] = res.data.ip;
 
@@ -35,7 +51,8 @@ function App() {
         if (parsedData.children[0].children[0].children[0].children[1].value === "999") {
             console.log("wifi")
             dispatch(setConnectionType("wifi"));
-            toast.warn("Please switch to mobile data to continue")
+            // toast.warn("Please switch to mobile data to continue")
+            handleModalOpen()
         } else {
             console.log("mobile")
             dispatch(setConnectionType("mobile"));
@@ -43,7 +60,6 @@ function App() {
         // setData(parsedData);
         gameRegister(parsedData).then().catch(err => console.log("err:", err));
     };
-
 
     return (
         <>
@@ -64,6 +80,27 @@ function App() {
 
                 <Footer />
             </BrowserRouter>
+
+            <>
+                <Dialog
+                    open={modalOpen}
+                    onClose={handleModalClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"You are using wifi"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Please switch to safaricom mobile data to continue
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleModalClose} autoFocus>Ok</Button>
+                    </DialogActions>
+                </Dialog>
+            </>
         </>
     );
 }

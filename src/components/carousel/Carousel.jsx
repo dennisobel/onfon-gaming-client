@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -12,10 +12,27 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import "./style.scss";
 
+import Button from '@mui/material/Button';
+import { Dialog } from "@mui/material";
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+
 const Carousel = ({ data, loading, endpoint, title, games }) => {
     const { connection_type } = useSelector((state) => state.home);
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
+
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const handleModalOpen = () => {
+        setModalOpen(true)
+    }
+
+    const handleModalClose = () => {
+        setModalOpen(false)
+    }
 
     const skItem = () => {
         return (
@@ -76,7 +93,7 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                                                 // navigate(
                                                 //     `/${item._id}`
                                                 // )
-                                                connection_type === "wifi" ? toast.warn("Please switch to mobile data to continue") : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                                connection_type === "wifi" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                             }
                                         >
                                             <div className="posterBlock">
@@ -109,6 +126,26 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
                     )}
                 </ContentWrapper>
             </div>
+            <>
+                <Dialog
+                    open={modalOpen}
+                    onClose={handleModalClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {"You are using wifi"}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Please switch to safaricom mobile data to continue
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleModalClose} autoFocus>Ok</Button>
+                    </DialogActions>
+                </Dialog>
+            </>
         </>
     );
 };
