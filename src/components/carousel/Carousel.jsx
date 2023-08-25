@@ -6,10 +6,6 @@ import ContentWrapper from "../contentWrapper/ContentWrapper";
 import Img from "../lazyLoadImage/Img";
 import PosterFallback from "../../assets/no-poster.png";
 import CircleRating from "../circleRating/CircleRating";
-
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 import "./style.scss";
 
 import Button from '@mui/material/Button';
@@ -48,8 +44,6 @@ const Carousel = ({ data, loading, endpoint, title, games }) => {
 
     return (
         <>
-            <ToastContainer />
-
             <div className="carousel">
                 <ContentWrapper>
                     {title && <div className="carouselTitle">{title}</div>}

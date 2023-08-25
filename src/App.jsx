@@ -18,9 +18,6 @@ import axios from "axios";
 import XMLParser from 'react-xml-parser';
 import { gameRegister } from "./utils/api";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
 function App() {
     const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false)
@@ -32,7 +29,7 @@ function App() {
     const handleModalClose = () => {
         setModalOpen(false)
     }
-    
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -63,7 +60,6 @@ function App() {
 
     return (
         <>
-            <ToastContainer />
             <BrowserRouter>
                 {/* <Header /> */}
                 <Routes>
