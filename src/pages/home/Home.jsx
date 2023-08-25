@@ -11,6 +11,7 @@ const Home = () => {
 
 
     useEffect(() => {
+        console.log("protocol:", window.location.protocol)
         const networkInformation = navigator.connection;
         console.log("type:", navigator.connection)
         console.log("type:", navigator.mozConnection)

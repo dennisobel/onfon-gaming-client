@@ -62,11 +62,11 @@ export const headless = async () => {
 }
 */
 
-export const headless = async () => {
-    await fetch("https://header.safaricombeats.co.ke/").then((response) => {
-        console.log("response:",response.text())
-        // res.status(200).json({message:"Header sent successfully", data:response.data})
-        return response.text()
-    })
-    .catch((err) => {console.log("err:",err)})
-}
+// export const headless = async () => {
+//     await fetch("https://header.safaricombeats.co.ke/").then((response) => {
+//         console.log("response:",response.text())
+        
+//         return response.text()
+//     })
+//     .catch((err) => {console.log("err:",err)})
+// }
