@@ -12,27 +12,16 @@ import logo from "../../../assets/slot.jpg";
 import { setQuery } from "../../../store/homeSlice";
 
 const HeroBanner = () => {
-    const [background, setBackground] = useState("");
     const [localQuery, setLocalQuery] = useState("");
-    const navigate = useNavigate();
-    const { url } = useSelector((state) => state.home);
     const dispatch = useDispatch()
-    const { data, loading } = useFetch("/movie/upcoming");
+    const { loading } = useFetch("/movie/upcoming");
 
-    useEffect(() => {
-        const bg =
-            url.backdrop +
-            data?.results?.[Math.floor(Math.random() * 20)]?.backdrop_path;
-        setBackground(bg);
-    }, [data]);
 
     const searchQueryHandler = (event) => {
         event.preventDefault();
         if (event.key === "Enter") {
             if (localQuery.length > 0) {
-                console.log(localQuery);
                 dispatch(setQuery(localQuery));
-                // navigate(`/search/${localQuery}`);
             } else {
                 dispatch(setQuery(""));
             }

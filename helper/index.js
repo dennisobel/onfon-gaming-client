@@ -1,5 +1,5 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
+// import jwt_decode from "jwt-decode";
 
 // axios.defaults.baseURL = import.meta.env.REACT_APP_BASE_URL;
 const GAMES_URL = import.meta.env.GAMES_URL;
@@ -8,12 +8,12 @@ axios.defaults.baseURL = GAMES_URL
 /** Make API Requests */
 
 /** To get email from Token */
-export async function getUsername() {
-  const token = localStorage.getItem("token");
-  if (!token) return Promise.reject("Cannot find Token");
-  let decode = jwt_decode(token);
-  return decode;
-}
+// export async function getUsername() {
+//   const token = localStorage.getItem("token");
+//   if (!token) return Promise.reject("Cannot find Token");
+//   let decode = jwt_decode(token);
+//   return decode;
+// }
 
 /** authenticate function */
 export async function authenticate(email) {

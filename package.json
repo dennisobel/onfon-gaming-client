@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "concurrently \"nodemon proxy-server.js\" \"vite --host 0.0.0.0\"",
+        "dev": "vite --host 0.0.0.0",
         "build": "vite build",
         "preview": "vite preview"
     },
@@ -15,11 +15,7 @@
         "@mui/material": "^5.13.6",
         "@reduxjs/toolkit": "^1.9.5",
         "axios": "^1.4.0",
-        "cors": "^2.8.5",
         "dayjs": "^1.11.7",
-        "express": "^4.18.2",
-        "jwt-decode": "^3.1.2",
-        "nodemon": "^3.0.1",
         "react": "^18.2.0",
         "react-circular-progressbar": "^2.1.0",
         "react-dom": "^18.2.0",
@@ -30,14 +26,12 @@
         "react-router-dom": "^6.6.2",
         "react-xml-parser": "^1.1.8",
         "sass": "^1.57.1",
-        "validator": "^13.9.0",
         "xml-js": "^1.6.11"
     },
     "devDependencies": {
         "@types/react": "^18.0.26",
         "@types/react-dom": "^18.0.9",
         "@vitejs/plugin-react": "^3.0.0",
-        "concurrently": "^8.2.1",
         "vite": "^4.0.0"
     }
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchDataFromApi, fetchGames, fetchGame } from "../utils/api";
+import { fetchGame } from "../utils/api";
 const useFetchGame = (url) => {
     const [data, setData] = useState(null);
     const [details,setDetails] = useState()
