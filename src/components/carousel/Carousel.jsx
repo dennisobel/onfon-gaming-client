@@ -30,6 +30,7 @@ const Carousel = ({ loading, title, games }) => {
     }
 
     useEffect(() => {
+        // console.log("games:",games)
         const updateConnectionType = () => {
             const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
             if (connection) {
@@ -73,7 +74,7 @@ const Carousel = ({ loading, title, games }) => {
             <div className="carousel">
                 <ContentWrapper>
                     {title && <div className="carouselTitle">{title}</div>}
-                    {!loading ? (
+                    {/* {!loading ? (
                         <div className="carouselItems" ref={carouselContainer}>
                             {games?.map((item, i) => {
                                 const posterUrl = item.poster_path
@@ -116,7 +117,42 @@ const Carousel = ({ loading, title, games }) => {
                             {skItem()}
                             {skItem()}
                         </div>
-                    )}
+                    )} */}
+
+<div className="carouselItems" ref={carouselContainer}>
+                            {games?.map((item, i) => {
+                                const posterUrl = item.poster_path
+                                    ? url.poster + item.poster_path
+                                    : PosterFallback;
+                                return (
+                                    <>
+
+                                        <div
+                                            key={item._id}
+                                            className="carouselItem"
+                                            onClick={() =>
+                                                connectionType === "wifi" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                            }
+                                        >
+                                            <div className="posterBlock">
+                                                <Img src={item.poster_path} />
+                                                <div>
+                                                    <CircleRating
+                                                        rating={1 + i}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="textBlock">
+                                                <span className="title">
+                                                    {item.title || item.name}
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                    </>
+                                );
+                            })}
+                        </div>
                 </ContentWrapper>
             </div>
             <>

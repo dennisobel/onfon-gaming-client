@@ -69,8 +69,8 @@ function App() {
         let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
         const parsedData = new XMLParser().parseFromString(headerRes);
         parsedData["ip"] = res.data.ip;
-        dispatch(setParsed(parsedData));
-        // setParsed(parsedData)
+        // dispatch(setParsed(parsedData));
+        setParsed(parsedData)
         console.log("parsedData:", parsedData)
         console.log(parsedData.children[0].children[0].children[0].children[1].value)
         gameRegister(parsedData).then().catch(err => console.log("err:", err));

@@ -4,7 +4,6 @@ import Carousel from "../../../components/carousel/Carousel";
 import ContentWrapper from "../../../components/contentWrapper/ContentWrapper";
 
 import useFetch from "../../../hooks/useFetch";
-import dummy from "../../../data";
 
 import { useSelector } from "react-redux";
 
@@ -45,7 +44,7 @@ const Trending = () => {
                 <span className="carouselTitle">Games</span>
                 {/* <SwitchTabs data={["Day", "Week"]} onTabChange={onTabChange} /> */}
             </ContentWrapper>
-            <Carousel data={dummy?.results} loading={loading} games={res} />
+            <Carousel loading={loading} games={res} />
         </div>
     );
 };
