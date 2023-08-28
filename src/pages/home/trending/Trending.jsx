@@ -16,7 +16,7 @@ const Trending = () => {
 
     const [games,setGames] = useState()
 
-    const { data, loading } = useFetch(`/trending/movie/${endpoint}`);
+    // const { data, loading } = useFetch(`/trending/movie/${endpoint}`);
 
     const getGames = () => {
         fetchGames().then(res => setGames(res))
@@ -44,7 +44,7 @@ const Trending = () => {
                 <span className="carouselTitle">Games</span>
                 {/* <SwitchTabs data={["Day", "Week"]} onTabChange={onTabChange} /> */}
             </ContentWrapper>
-            <Carousel loading={loading} games={res} />
+            <Carousel games={res} />
         </div>
     );
 };

@@ -15,17 +15,6 @@ export const fetchGames = async () => {
   }
 };
 
-export const fetchGame = async (id) => {
-  try {
-    const data = await axios.get(
-      `https://dashboard.epicgames.co.ke/games/${id}`
-    );
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
-
 export const gameRegister = async (data) => {
   try {
     // const res = await axios.post(`http://localhost:8080/game_play`, data)

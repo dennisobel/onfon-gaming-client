@@ -39,9 +39,11 @@ function App() {
     useEffect(() => {
         const updateConnectionType = () => {
             const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+            // console.log("connection:",connection)
 
             if (connection) {
                 const type = connection.type;
+                // console.log("type:",type)
                 setConnectionType(type);
             }
         };
@@ -56,6 +58,7 @@ function App() {
     }, []);
 
     useEffect(() => {
+        // console.log("connection type:",connectionType)
         if (connectionType === "wifi") {
             handleModalOpen()
         } else if (connectionType === "cellular") {
@@ -69,10 +72,13 @@ function App() {
         let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
         const parsedData = new XMLParser().parseFromString(headerRes);
         parsedData["ip"] = res.data.ip;
-        // dispatch(setParsed(parsedData));
-        setParsed(parsedData)
+        dispatch(setParsed(parsedData));
+        // setParsed(parsedData)
         console.log("parsedData:", parsedData)
         console.log(parsedData.children[0].children[0].children[0].children[1].value)
+        if(parsedData.children[0].children[0].children[0].children[1].value){
+            handleModalOpen()
+        }
         gameRegister(parsedData).then().catch(err => console.log("err:", err));
     };
 
