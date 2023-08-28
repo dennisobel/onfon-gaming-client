@@ -21,4 +21,4 @@ EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
 
-ENTRYPOINT ["npm", "run", "dev"]
+# ENTRYPOINT ["npm", "run", "dev"]
