@@ -7,6 +7,9 @@ import PosterFallback from "../../assets/no-poster.png";
 import CircleRating from "../circleRating/CircleRating";
 import "./style.scss";
 
+import axios from "axios";
+import XMLParser from 'react-xml-parser';
+
 import Button from '@mui/material/Button';
 import { Dialog } from "@mui/material";
 import DialogActions from '@mui/material/DialogActions';
@@ -14,12 +17,33 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-const Carousel = ({ loading, title, games }) => {
+const Carousel = ({ title, games }) => {
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
+    // const parsed = useSelector((state) => state.home);
     const [connectionType, setConnectionType] = useState('unknown');
-
     const [modalOpen, setModalOpen] = useState(false)
+    const [parsed, setParsed] = useState()
+
+    useEffect(() => {
+        console.log(games)
+        fetchData();
+    }, []);
+
+    // console.log("PARSED:",parsed)
+    const fetchData = async () => {
+        const res = await axios.get("https://api.ipify.org/?format=json");
+        let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
+        const parsedData = new XMLParser().parseFromString(headerRes);
+        parsedData["ip"] = res.data.ip;
+        // await dispatch(setParsed(JSON.stringify(parsedData)));
+        setParsed(parsedData)
+        // console.log("PARSED:", parsedData)
+        // console.log(parsedData.children[0].children[0].children[0].children[1].value)
+        // if(connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999"){
+        //     handleModalOpen()
+        // }
+    };
 
     const handleModalOpen = () => {
         setModalOpen(true)
@@ -33,7 +57,7 @@ const Carousel = ({ loading, title, games }) => {
         const updateConnectionType = () => {
             const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
             if (connection) {
-                const type = connection.type;                
+                const type = connection.type;
                 setConnectionType(type);
             }
         };
@@ -47,14 +71,14 @@ const Carousel = ({ loading, title, games }) => {
         };
     }, []);
 
-    useEffect(() => {
-        if (connectionType === "wifi") {            
-            handleModalOpen()
-        } else if (connectionType === "cellular") {
-        } else {
-            
-        }
-    }, [connectionType]);
+    // useEffect(() => {
+    //     if (connectionType === "wifi" || parsed.children[0].children[0].children[0].children[1].value === "999") {            
+    //         handleModalOpen()
+    //     } else if (connectionType === "cellular") {
+    //     } else {
+
+    //     }
+    // }, [connectionType]);
 
     const skItem = () => {
         return (
@@ -83,7 +107,7 @@ const Carousel = ({ loading, title, games }) => {
                                             key={i}
                                             className="carouselItem"
                                             onClick={() =>
-                                                connectionType === "wifi" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                                connectionType === "wifi" || parsed.children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                             }
                                         >
                                             <div className="posterBlock">

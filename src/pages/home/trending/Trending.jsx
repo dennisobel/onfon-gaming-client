@@ -19,11 +19,12 @@ const Trending = () => {
         fetchGames().then(res => setGames(res))
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getGames()
     },[])
 
     useEffect(() => {    
+        console.log(games)
         let res = games !== undefined && games?.data.filter(el => {
             return el?.title?.toLowerCase() === query?.toLowerCase();
         });
@@ -33,7 +34,6 @@ const Trending = () => {
     }, [games, query]);    
 
     const res = query !== "" ? filtered : games?.data
-
 
     return (
         <div className="carouselSection">
