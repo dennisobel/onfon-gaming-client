@@ -33,7 +33,7 @@ const Carousel = ({ title, games }) => {
     // console.log("PARSED:",parsed)
     const fetchData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
-        let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
+        let headerRes = await fetch("http://header.safaricombeats.co.ke/").then(res => res.text())
         const parsedData = new XMLParser().parseFromString(headerRes);
         parsedData["ip"] = res.data.ip;
         // await dispatch(setParsed(JSON.stringify(parsedData)));
@@ -62,13 +62,15 @@ const Carousel = ({ title, games }) => {
             }
         };
 
-        updateConnectionType();
+        if(!navigator.userAgent.toLowerCase().includes("mozilla")){
+            updateConnectionType();
 
-        navigator.connection.addEventListener('change', updateConnectionType);
-
-        return () => {
-            navigator.connection.removeEventListener('change', updateConnectionType);
-        };
+            navigator.connection.addEventListener('change', updateConnectionType);
+    
+            return () => {
+                navigator.connection.removeEventListener('change', updateConnectionType);
+            };
+        }
     }, []);
 
     // useEffect(() => {
