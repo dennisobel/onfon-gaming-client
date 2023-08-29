@@ -15,7 +15,7 @@ import axios from "axios";
 import XMLParser from 'react-xml-parser';
 import { gameRegister } from "./utils/api";
 
-import { setParsed } from "./store/homeSlice";
+import { setIP, setParsed } from "./store/homeSlice";
 
 import { checkXmlResponse } from "./utils/helper";
 
@@ -161,6 +161,7 @@ function App() {
         }
         setHeaderdata(headerRes.data)
         dispatch(setParsed(headerRes.data))
+        dispatch(setIP(res.data.ip))
 
         // const parsedData = new XMLParser().parseFromString(headerRes.data);
         // parsedData["ip"] = res.data.ip;

@@ -25,7 +25,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Carousel = ({ title, games, data }) => {
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
-    const { parsed } = useSelector((state) => state.home);
+    const { ip } = useSelector((state) => state.home);
     // const [connectionType, setConnectionType] = useState('unknown');
     const [modalOpen, setModalOpen] = useState(false)
     const [patternNumber, setPatternNumber] = useState()
@@ -166,8 +166,9 @@ const Carousel = ({ title, games, data }) => {
                                                 if (patternNumber) {
                                                     if (patternNumber == 1) {
                                                         console.log("MsisdnHash extracted:", extractedValue);
-                                                        let sub = checkSubscribed({ msisdn: extractedValue, ip: res.data.ip });
-                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip: res.data.ip })
+                                                        let sub = checkSubscribed({ msisdn: extractedValue, ip });
+                                                        
+                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
                                                     } else if (patternNumber == 2) {
                                                         console.log("Prompt user to use cellular data:", extractedValue);
                                                         handleModalOpen("Please switch to safaricom mobile data to continue.");
