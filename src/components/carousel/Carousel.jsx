@@ -17,24 +17,27 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Carousel = ({ title, games }) => {
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
-    // const parsed = useSelector((state) => state.home);
+    const { parsed } = useSelector((state) => state.home);
     const [connectionType, setConnectionType] = useState('unknown');
     const [modalOpen, setModalOpen] = useState(false)
-    const [parsed, setParsed] = useState()
+    // const [parsed, setParsed] = useState()
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        const timer = setTimeout(() => {
-            fetchData();
-        }, 1500); // Adjust the delay time (in milliseconds) as needed
+    //     const timer = setTimeout(() => {
+    //         fetchData();
+    //     }, 1500); 
 
-        return () => {
-            clearTimeout(timer); // Clear the timer if the component unmounts before the timer completes
-        };
-    }, []);
+    //     return () => {
+    //         clearTimeout(timer); 
+    //     };
+    // }, []);
 
     // console.log("PARSED:",parsed)
     const fetchData = async () => {
@@ -95,6 +98,7 @@ const Carousel = ({ title, games }) => {
 
     return (
         <>
+            <ToastContainer />
             <div className="carousel">
                 <ContentWrapper>
                     {title && <div className="carouselTitle">{title}</div>}
@@ -107,8 +111,12 @@ const Carousel = ({ title, games }) => {
                                         <div
                                             key={i}
                                             className="carouselItem"
-                                            onClick={() =>
-                                                connectionType === "wifi" || parsed.children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                            onClick={() => {
+                                                toast.warn(JSON.parse(parsed).children[0].children[0].children[0].children[1].value)
+                                                // console.log(parsed)
+                                                console.log(JSON.parse(parsed).children[0].children[0].children[0].children[1].value)
+                                                connectionType === "wifi" || JSON.parse(parsed).children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                            }
                                             }
                                         >
                                             <div className="posterBlock">

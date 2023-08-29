@@ -77,7 +77,7 @@ function App() {
         console.log("headerdata:", headerdata)
         // checkSubscribed()
         // subscribe()
-        siteLoad(headerdata)
+        // siteLoad(headerdata)
     }, [headerdata])
 
     const checkSubscribed = async () => {
@@ -127,13 +127,22 @@ function App() {
 
     const fetchData = async () => {
         const res = await axios.get("https://api.ipify.org/?format=json");
-        let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text()).catch(err => console.log("err:", err))
-        const parsedData = new XMLParser().parseFromString(headerRes);
+        // let headerRes = await fetch("https://header.safaricombeats.co.ke/")
+        const headerRes = await axios.get("https://header.safaricombeats.co.ke/", {
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+            },
+        });
+
+        console.log("headerRes:", headerRes)
+
+        const parsedData = new XMLParser().parseFromString(headerRes.data);
         parsedData["ip"] = res.data.ip;
-        setHeaderdata(parsedData)
+        toast.warn(parsedData.children[0].children[0].children[0].children[1].value)
+        // setHeaderdata(parsedData)
         dispatch(setParsed(JSON.stringify(parsedData)));
 
-        toast.warn(parsedData.children[0].children[0].children[0].children[1].value)
+
 
         // console.log("parsedData:", parsedData)
         // console.log(parsedData.children[0].children[0].children[0].children[1].value)
