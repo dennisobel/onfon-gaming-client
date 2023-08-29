@@ -31,7 +31,8 @@ const Carousel = ({ title, games, data }) => {
     const [extractedValue, setExtractedValue] = useState()
     const [modalText, setModalText] = useState()
 
-    const handleModalOpen = () => {
+    const handleModalOpen = (text) => {
+        setModalText(text)
         setModalOpen(true)
     }
 
@@ -177,11 +178,11 @@ const Carousel = ({ title, games, data }) => {
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">
-                        {"You are using wifi"}
+                        {"Action Required"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Please switch to safaricom mobile data to continue.
+                            {modalText}
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

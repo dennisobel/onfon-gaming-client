@@ -166,18 +166,7 @@ function App() {
 
         // const parsedData = new XMLParser().parseFromString(headerRes.data);
         // parsedData["ip"] = res.data.ip;
-        // toast.warn(headerRes.status)
-        // setHeaderdata(parsedData)
         // dispatch(setParsed(JSON.stringify(parsedData)));
-
-
-
-        // console.log("parsedData:", parsedData)
-        // console.log(parsedData.children[0].children[0].children[0].children[1].value)
-        // if (connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999") {
-        //     handleModalOpen("Please switch to safaricom mobile data to continue!")
-        // }
-        // await gameRegister(parsedData).then().catch(err => console.log("err:", err));
     };
 
     return (
