@@ -24,7 +24,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import axiosRetry from 'axios-retry';
 
-axiosRetry(axios, { retries: 5 });
+axiosRetry(axios, { retries: 10 });
 
 function App() {
     const dispatch = useDispatch();
