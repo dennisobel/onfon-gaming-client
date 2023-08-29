@@ -71,7 +71,6 @@ function App() {
     }, []);
 
     const siteLoad = async (data) => {
-        console.log("subscribed:", data)
         const site_load = await axios.post(
             `https://dashboard.epicgames.co.ke/game_play`,
             // `http://localhost:8080/game_play`,
@@ -90,7 +89,6 @@ function App() {
                 'Content-Type': 'application/json'
             }
         })
-        console.log("Subscribed:", data)
         if (data.Subscribed === 1) {
             toast.success("You are subscribed")
         } else if (data.Subscribed === 0) {
@@ -148,12 +146,10 @@ function App() {
         if (patternNumber) {
             if (patternNumber == 1) {
                 // MsisdnHash extracted: 620002852183
-                console.log("MsisdnHash extracted:", extractedValue);
                 checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
                 // checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" })
             } else if (patternNumber == 2) {
                 // Prompt user to use cellular data: 999
-                console.log("Prompt user to use cellular data:", extractedValue);
                 handleModalOpen("Please switch to safaricom mobile data to continue.")
             }
         } else {

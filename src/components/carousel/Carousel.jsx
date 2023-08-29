@@ -52,7 +52,7 @@ const Carousel = ({ title, games, data }) => {
             return true
         } else if (data.Subscribed === 0) {
             handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
-            To activate the service enter 1 on your phone`)
+            To activate the service enter 1 on the prompt`)
             subscribe({ msisdn, ip })
             return false
         }
@@ -125,7 +125,6 @@ const Carousel = ({ title, games, data }) => {
                                                 if (patternNumber) {
                                                     console.log("patternNumber:", patternNumber)
                                                     if (patternNumber === 1) {
-                                                        console.log("MsisdnHash extracted:", extractedValue);
                                                         let sub = checkSubscribed({ msisdn: extractedValue, ip });
                                                         console.log("sub:", sub)                                                        
                                                         // sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
