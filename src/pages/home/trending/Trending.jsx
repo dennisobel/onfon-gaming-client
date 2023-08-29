@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 import { fetchGames } from "../../../utils/api";
 
-const Trending = () => {
+const Trending = ({data}) => {
     const [filtered, setFiltered] = useState()
     const { query } = useSelector((state) => state.home);
 
@@ -40,7 +40,7 @@ const Trending = () => {
             <ContentWrapper>
                 <span className="carouselTitle">Games</span>
             </ContentWrapper>
-            <Carousel games={res} />
+            <Carousel games={res} data={data}/>
         </div>
     );
 };

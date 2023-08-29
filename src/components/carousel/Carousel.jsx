@@ -17,35 +17,20 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
+import { checkXmlResponse } from "../../utils/helper";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Carousel = ({ title, games }) => {
+const Carousel = ({ title, games, data }) => {
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
     const { parsed } = useSelector((state) => state.home);
-    const [connectionType, setConnectionType] = useState('unknown');
+    // const [connectionType, setConnectionType] = useState('unknown');
     const [modalOpen, setModalOpen] = useState(false)
-    // const [parsed, setParsed] = useState()
-
-    // useEffect(() => {
-
-    //     const timer = setTimeout(() => {
-    //         fetchData();
-    //     }, 1500); 
-
-    //     return () => {
-    //         clearTimeout(timer); 
-    //     };
-    // }, []);
-
-    // console.log("PARSED:",parsed)
-    const fetchData = async () => {
-        const res = await axios.get("https://api.ipify.org/?format=json");
-        let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
-        const parsedData = new XMLParser().parseFromString(headerRes);
-        setParsed(parsedData)
-    };
+    const [patternNumber, setPatternNumber] = useState()
+    const [extractedValue, setExtractedValue] = useState()
+    console.log("parsed:", data)
 
     const handleModalOpen = () => {
         setModalOpen(true)
@@ -55,34 +40,69 @@ const Carousel = ({ title, games }) => {
         setModalOpen(false)
     }
 
+    // const [patternNumber, extractedValue] = checkXmlResponse(data);
+
     useEffect(() => {
-        const updateConnectionType = () => {
-            const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-            if (connection) {
-                const type = connection.type;
-                setConnectionType(type);
+        if (data !== null) {
+            let res = checkXmlResponse(data)
+            if (res !== null) {
+                const [patternNumber, extractedValue] = res;
+                setPatternNumber(patternNumber)
+                setExtractedValue(extractedValue)
+                // if (patternNumber) {
+                //     if (patternNumber == 1) {
+                //         console.log("MsisdnHash extracted:", extractedValue);
+                //         checkSubscribed({ msisdn: extractedValue, ip: res.data.ip });
+                //     } else if (patternNumber == 2) {
+                //         console.log("Prompt user to use cellular data:", extractedValue);
+                //         handleModalOpen("Please switch to safaricom mobile data to continue.");
+                //     }
+                // } else {
+                //     console.log("XML response pattern not recognized.");
+                // }
             }
-        };
-
-        if (!navigator.userAgent.toLowerCase().includes("mozilla")) {
-            updateConnectionType();
-
-            navigator.connection.addEventListener('change', updateConnectionType);
-
-            return () => {
-                navigator.connection.removeEventListener('change', updateConnectionType);
-            };
+    
         }
-    }, []);
+    },[data])
+
+    // if (data !== null) {
+    //     let res = checkXmlResponse(data)
+    //     if (res !== null) {
+    //         const [patternNumber, extractedValue] = res;
+    //         if (patternNumber) {
+    //             if (patternNumber == 1) {
+    //                 console.log("MsisdnHash extracted:", extractedValue);
+    //                 checkSubscribed({ msisdn: extractedValue, ip: res.data.ip });
+    //             } else if (patternNumber == 2) {
+    //                 console.log("Prompt user to use cellular data:", extractedValue);
+    //                 handleModalOpen("Please switch to safaricom mobile data to continue.");
+    //             }
+    //         } else {
+    //             console.log("XML response pattern not recognized.");
+    //         }
+    //     }
+
+    // }
 
     // useEffect(() => {
-    //     if (connectionType === "wifi" || parsed.children[0].children[0].children[0].children[1].value === "999") {            
-    //         handleModalOpen()
-    //     } else if (connectionType === "cellular") {
-    //     } else {
+    //     const updateConnectionType = () => {
+    //         const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    //         if (connection) {
+    //             const type = connection.type;
+    //             setConnectionType(type);
+    //         }
+    //     };
 
+    //     if (!navigator.userAgent.toLowerCase().includes("mozilla")) {
+    //         updateConnectionType();
+
+    //         navigator.connection.addEventListener('change', updateConnectionType);
+
+    //         return () => {
+    //             navigator.connection.removeEventListener('change', updateConnectionType);
+    //         };
     //     }
-    // }, [connectionType]);
+    // }, []);
 
     const skItem = () => {
         return (
@@ -112,10 +132,19 @@ const Carousel = ({ title, games }) => {
                                             key={i}
                                             className="carouselItem"
                                             onClick={() => {
-                                                toast.warn(JSON.parse(parsed).children[0].children[0].children[0].children[1].value)
-                                                // console.log(parsed)
-                                                console.log(JSON.parse(parsed).children[0].children[0].children[0].children[1].value)
-                                                connectionType === "wifi" || JSON.parse(parsed).children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                                if (patternNumber) {
+                                                    if (patternNumber == 1) {
+                                                        console.log("MsisdnHash extracted:", extractedValue);
+                                                        checkSubscribed({ msisdn: extractedValue, ip: res.data.ip });
+                                                    } else if (patternNumber == 2) {
+                                                        console.log("Prompt user to use cellular data:", extractedValue);
+                                                        handleModalOpen("Please switch to safaricom mobile data to continue.");
+                                                    }
+                                                } else {
+                                                    console.log("XML response pattern not recognized.");
+                                                }
+                                                
+                                                // connectionType === "wifi" || JSON.parse(parsed).children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                             }
                                             }
                                         >

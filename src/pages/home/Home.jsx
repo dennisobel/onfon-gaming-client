@@ -6,7 +6,7 @@ import "./style.scss";
 import HeroBanner from "./heroBanner/HeroBanner";
 import Trending from "./trending/Trending";
 
-const Home = () => {
+const Home = ({data}) => {
     // const {parsed} = useSelector((state) => state.home);
     // console.log("psd:",parsed?.children[0].children[0].children[0].children[1].value)
     return (
@@ -15,7 +15,7 @@ const Home = () => {
             <div className="homePage">
                 {/* <p>Parsed: {parsed?.children[0].children[0].children[0].children[1].value}</p> */}
                 <HeroBanner />
-                <Trending />
+                <Trending data={data}/>
             </div>
         </>
     );

@@ -17,6 +17,8 @@ import { gameRegister } from "./utils/api";
 
 import { setParsed } from "./store/homeSlice";
 
+import { checkXmlResponse } from "./utils/helper";
+
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -63,55 +65,10 @@ function App() {
         }
     }, []);
 
-    useEffect(() => {
-        // console.log("connection type:",connectionType)
-        if (connectionType === "wifi") {
-            // handleModalOpen("Please switch to safaricom mobile data to continue.")
-        } else if (connectionType === "cellular") {
-        } else {
-
-        }
-    }, [connectionType]);
 
     useEffect(() => {
         fetchData();
     }, []);
-
-    useEffect(() => {
-        console.log("headerdata:", headerdata)
-        // checkSubscribed()
-        // subscribe()
-        // siteLoad(headerdata)
-    }, [headerdata])
-
-    const checkSubscribed = async () => {
-        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn: "254726354124" }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        console.log("Subscribed:", data)
-        if (data.Subscribed === 1) {
-            toast.success("You are subscribed")
-        } else if (data.Subscribed === 0) {
-            handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
-            To activate the service enter 1 on your phone`)
-            subscribe()
-        }
-    }
-
-    const subscribe = async () => {
-        let res = await axios.post("http://sub.epicgames.co.ke/activate", {
-            msisdn: "254727677068",
-            ip_address: headerdata.ip,
-            command: "subscribe",
-            channel: "epicgames"
-        }, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-    }
 
     const siteLoad = async (data) => {
         console.log("subscribed:", data)
@@ -125,46 +82,99 @@ function App() {
                 }
             }
         );
-
-        console.log("site_load:", site_load)
     }
 
+    const checkSubscribed = async ({ msisdn, ip }) => {
+        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log("Subscribed:", data)
+        if (data.Subscribed === 1) {
+            toast.success("You are subscribed")
+        } else if (data.Subscribed === 0) {
+            handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
+            To activate the service enter 1 on your phone`)
+            subscribe({ msisdn, ip })
+        }
+    }
+
+    const subscribe = async ({ msisdn, ip }) => {
+        let res = await axios.post("http://sub.epicgames.co.ke/activate", {
+            msisdn,
+            ip_address: ip,
+            command: "subscribe",
+            channel: "epicgames"
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+    }
+
+    // function checkXmlResponse(xmlResponse) {
+    //     const pattern1 = /<SOAP-ENV:Envelope[^>]*>[\s\S]*?<ns1:MsisdnHash>(.*?)<\/ns1:MsisdnHash>[\s\S]*?<\/SOAP-ENV:Envelope>/;
+    //     const pattern2 = /<SOAP-ENV:Envelope[^>]*>[\s\S]*?<ns0:ResponseCode>1<\/ns0:ResponseCode>[\s\S]*?<ns0:ResponseMsg>(.*?)<\/ns0:ResponseMsg>[\s\S]*?<\/SOAP-ENV:Envelope>/;
+    //     const match1 = pattern1.exec(xmlResponse);
+    //     const match2 = pattern2.exec(xmlResponse);
+
+    //     if (match1) {
+    //         return [1, match1[1]];
+    //     } else if (match2) {
+    //         return [2, match2[1]];
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
     const fetchData = async () => {
-
-
         const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
             pending: 'IP is pending',
             success: 'IP resolved 👌',
             error: 'IP rejected 🤯'
         });
-        // let headerRes = await fetch("https://header.safaricombeats.co.ke/")
-        const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/"
-            // , {
-            //     headers: {
-            //         "User-Agent": "Mozilla/5.0 (Linux; Android 10; SM-G970F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
-            //     },
-            // }
-        ), {
-            pending: 'Headers pending',
-            success: 'Headers resolved 👌',
-            error: 'Headers rejected 🤯'
+        const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/"), {
+            pending: 'Verification pending',
+            success: 'Verification resolved 👌',
+            error: 'Verification rejected 🤯'
         });
 
-        console.log("headerRes:", headerRes)
+        // console.log("headerRes:", headerRes)
 
-        const parsedData = new XMLParser().parseFromString(headerRes.data);
-        parsedData["ip"] = res.data.ip;
-        toast.warn(headerRes.status)
+
+        const [patternNumber, extractedValue] = checkXmlResponse(headerRes.data);
+
+        if (patternNumber) {
+            if (patternNumber == 1) {
+                // MsisdnHash extracted: 620002852183
+                console.log("MsisdnHash extracted:", extractedValue);
+                checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
+            } else if (patternNumber == 2) {
+                // Prompt user to use cellular data: 999
+                console.log("Prompt user to use cellular data:", extractedValue);
+                handleModalOpen("Please switch to safaricom mobile data to continue.")
+            }
+        } else {
+            // XML response pattern not recognized.
+            console.log("XML response pattern not recognized.");
+        }
+        setHeaderdata(headerRes.data)
+        dispatch(setParsed(headerRes.data))
+
+        // const parsedData = new XMLParser().parseFromString(headerRes.data);
+        // parsedData["ip"] = res.data.ip;
+        // toast.warn(headerRes.status)
         // setHeaderdata(parsedData)
-        dispatch(setParsed(JSON.stringify(parsedData)));
+        // dispatch(setParsed(JSON.stringify(parsedData)));
 
 
 
         // console.log("parsedData:", parsedData)
         // console.log(parsedData.children[0].children[0].children[0].children[1].value)
-        if (connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999") {
-            handleModalOpen("Please switch to safaricom mobile data to continue!")
-        }
+        // if (connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999") {
+        //     handleModalOpen("Please switch to safaricom mobile data to continue!")
+        // }
         // await gameRegister(parsedData).then().catch(err => console.log("err:", err));
     };
 
@@ -173,7 +183,7 @@ function App() {
             <ToastContainer />
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<Home data={headerdata} />} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
                 <Footer />
