@@ -140,8 +140,8 @@ function App() {
         // let headerRes = await fetch("https://header.safaricombeats.co.ke/")
         const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/", {
             headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
-            },
+                "User-Agent": "Mozilla/5.0 (Linux; Android 10; SM-G970F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
+              },
         }),{
             pending: 'Headers pending',
             success: 'Headers resolved 👌',
