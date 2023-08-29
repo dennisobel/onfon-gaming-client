@@ -138,7 +138,7 @@ function App() {
 
         const parsedData = new XMLParser().parseFromString(headerRes.data);
         parsedData["ip"] = res.data.ip;
-        toast.warn(parsedData.children[0].children[0].children[0].children[1].value)
+        toast.warn(headerRes.status)
         // setHeaderdata(parsedData)
         dispatch(setParsed(JSON.stringify(parsedData)));
 
