@@ -129,11 +129,11 @@ function App() {
     // }
 
     const fetchData = async () => {
-        const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
-            pending: 'IP is pending',
-            success: 'IP resolved 👌',
-            error: 'IP rejected 🤯'
-        });
+        // const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
+        //     pending: 'IP is pending',
+        //     success: 'IP resolved 👌',
+        //     error: 'IP rejected 🤯'
+        // });
         const headerRes = await toast.promise(axios.get("http://header.safaricombeats.co.ke/"), {
             pending: 'Verification pending',
             success: 'Verification resolved 👌',
@@ -149,7 +149,8 @@ function App() {
             if (patternNumber == 1) {
                 // MsisdnHash extracted: 620002852183
                 console.log("MsisdnHash extracted:", extractedValue);
-                checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
+                // checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
+                checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" })
             } else if (patternNumber == 2) {
                 // Prompt user to use cellular data: 999
                 console.log("Prompt user to use cellular data:", extractedValue);
