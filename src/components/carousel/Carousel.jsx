@@ -53,7 +53,7 @@ const Carousel = ({ title, games, data }) => {
         } else if (data.Subscribed === 0) {
             handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
             To activate the service enter 1 on your phone`)
-            // subscribe({ msisdn, ip })
+            subscribe({ msisdn, ip })
             return false
         }
     }
@@ -164,12 +164,14 @@ const Carousel = ({ title, games, data }) => {
                                             className="carouselItem"
                                             onClick={() => {
                                                 if (patternNumber) {
+                                                    console.log("patternNumber:", patternNumber)
                                                     if (patternNumber == 1) {
                                                         console.log("MsisdnHash extracted:", extractedValue);
-                                                        // let sub = checkSubscribed({ msisdn: extractedValue, ip });
-                                                        let sub = checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" });
+                                                        let sub = checkSubscribed({ msisdn: extractedValue, ip });
+                                                        // let sub = checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" });
                                                         
-                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
+                                                        // sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
+                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : null
                                                     } else if (patternNumber == 2) {
                                                         console.log("Prompt user to use cellular data:", extractedValue);
                                                         handleModalOpen("Please switch to safaricom mobile data to continue.");
