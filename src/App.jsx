@@ -112,8 +112,8 @@ function App() {
     const siteLoad = async (data) => {
         console.log("subscribed:", data)
         const site_load = await axios.post(
-            // `https://dashboard.epicgames.co.ke/game_play`,
-            `http://localhost:8080/game_play`,
+            `https://dashboard.epicgames.co.ke/game_play`,
+            // `http://localhost:8080/game_play`,
             data,
             {
                 headers: {
