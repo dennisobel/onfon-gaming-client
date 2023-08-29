@@ -134,7 +134,7 @@ function App() {
             success: 'IP resolved 👌',
             error: 'IP rejected 🤯'
         });
-        const headerRes = await toast.promise(axios.get("http://header.safaricombeats.co.ke/"), {
+        const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/"), {
             pending: 'Verification pending',
             success: 'Verification resolved 👌',
             error: 'Verification rejected 🤯'
