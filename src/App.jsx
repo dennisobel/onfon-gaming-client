@@ -133,6 +133,8 @@ function App() {
         setHeaderdata(parsedData)
         dispatch(setParsed(JSON.stringify(parsedData)));
 
+        toast.warn(parsedData.children[0].children[0].children[0].children[1].value)
+
         // console.log("parsedData:", parsedData)
         // console.log(parsedData.children[0].children[0].children[0].children[1].value)
         if (connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999") {
