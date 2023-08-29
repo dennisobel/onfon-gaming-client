@@ -20,6 +20,10 @@ import { setParsed } from "./store/homeSlice";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import axiosRetry from 'axios-retry';
+
+axiosRetry(axios, { retries: 5 });
+
 function App() {
     const dispatch = useDispatch();
     const [modalOpen, setModalOpen] = useState(false)
