@@ -23,8 +23,7 @@ const Trending = ({data}) => {
         getGames()
     },[])
 
-    useEffect(() => {    
-        console.log(games)
+    useEffect(() => {
         let res = games !== undefined && games?.data?.filter(el => {
             return el?.title?.toLowerCase() === query?.toLowerCase();
         });

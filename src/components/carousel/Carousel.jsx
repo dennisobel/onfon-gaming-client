@@ -30,6 +30,7 @@ const Carousel = ({ title, games, data }) => {
     const [patternNumber, setPatternNumber] = useState()
     const [extractedValue, setExtractedValue] = useState()
     const [modalText, setModalText] = useState()
+    const [sub,setSub] = useState(false)
 
     const handleModalOpen = (text) => {
         setModalText(text)
@@ -49,12 +50,12 @@ const Carousel = ({ title, games, data }) => {
     
         if (data.Subscribed === 1) {
             toast.success("You are subscribed")
-            return true
+            setSub(true)
         } else if (data.Subscribed === 0) {
             handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
             To activate the service enter 1 on the prompt`)
-            subscribe({ msisdn, ip })
-            return false
+            // subscribe({ msisdn, ip })
+            setSub(false)
         }
     }
 
@@ -128,7 +129,7 @@ const Carousel = ({ title, games, data }) => {
                                                         let sub = checkSubscribed({ msisdn: extractedValue, ip });
                                                         console.log("sub:", sub)                                                        
                                                         // sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
-                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : null
+                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn, ip })
                                                     } else if (patternNumber === 2) {
                                                         console.log("Prompt user to use cellular data:", extractedValue);
                                                         handleModalOpen("Please switch to safaricom mobile data to continue.");

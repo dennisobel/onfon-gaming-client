@@ -16,7 +16,6 @@ export const homeSlice = createSlice({
       state.connection_type = action.payload;
     },
     setParsed: (state,action) => {
-      console.log("setParsed",action.payload)
       state.parsed = action.payload;
     }, setIP: (state,action) => {
       state.ip = action.payload;
