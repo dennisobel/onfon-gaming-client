@@ -26,11 +26,10 @@ const Carousel = ({ title, games, data }) => {
     const carouselContainer = useRef();
     const { url } = useSelector((state) => state.home);
     const { ip } = useSelector((state) => state.home);
-    // const [connectionType, setConnectionType] = useState('unknown');
     const [modalOpen, setModalOpen] = useState(false)
     const [patternNumber, setPatternNumber] = useState()
     const [extractedValue, setExtractedValue] = useState()
-    console.log("parsed:", data)
+    const [modalText, setModalText] = useState()
 
     const handleModalOpen = () => {
         setModalOpen(true)
@@ -46,7 +45,7 @@ const Carousel = ({ title, games, data }) => {
                 'Content-Type': 'application/json'
             }
         })
-        console.log("Subscribed:", data)
+    
         if (data.Subscribed === 1) {
             toast.success("You are subscribed")
             return true
@@ -71,8 +70,6 @@ const Carousel = ({ title, games, data }) => {
         })
     }
 
-    // const [patternNumber, extractedValue] = checkXmlResponse(data);
-
     useEffect(() => {
         if (data !== null) {
             let res = checkXmlResponse(data)
@@ -95,45 +92,6 @@ const Carousel = ({ title, games, data }) => {
     
         }
     },[data])
-
-    // if (data !== null) {
-    //     let res = checkXmlResponse(data)
-    //     if (res !== null) {
-    //         const [patternNumber, extractedValue] = res;
-    //         if (patternNumber) {
-    //             if (patternNumber == 1) {
-    //                 console.log("MsisdnHash extracted:", extractedValue);
-    //                 checkSubscribed({ msisdn: extractedValue, ip: res.data.ip });
-    //             } else if (patternNumber == 2) {
-    //                 console.log("Prompt user to use cellular data:", extractedValue);
-    //                 handleModalOpen("Please switch to safaricom mobile data to continue.");
-    //             }
-    //         } else {
-    //             console.log("XML response pattern not recognized.");
-    //         }
-    //     }
-
-    // }
-
-    // useEffect(() => {
-    //     const updateConnectionType = () => {
-    //         const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    //         if (connection) {
-    //             const type = connection.type;
-    //             setConnectionType(type);
-    //         }
-    //     };
-
-    //     if (!navigator.userAgent.toLowerCase().includes("mozilla")) {
-    //         updateConnectionType();
-
-    //         navigator.connection.addEventListener('change', updateConnectionType);
-
-    //         return () => {
-    //             navigator.connection.removeEventListener('change', updateConnectionType);
-    //         };
-    //     }
-    // }, []);
 
     const skItem = () => {
         return (
@@ -165,22 +123,19 @@ const Carousel = ({ title, games, data }) => {
                                             onClick={() => {
                                                 if (patternNumber) {
                                                     console.log("patternNumber:", patternNumber)
-                                                    if (patternNumber == 1) {
+                                                    if (patternNumber === 1) {
                                                         console.log("MsisdnHash extracted:", extractedValue);
                                                         let sub = checkSubscribed({ msisdn: extractedValue, ip });
-                                                        // let sub = checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" });
-                                                        
+                                                        console.log("sub:", sub)                                                        
                                                         // sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
                                                         sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : null
-                                                    } else if (patternNumber == 2) {
+                                                    } else if (patternNumber === 2) {
                                                         console.log("Prompt user to use cellular data:", extractedValue);
                                                         handleModalOpen("Please switch to safaricom mobile data to continue.");
                                                     }
                                                 } else {
                                                     console.log("XML response pattern not recognized.");
                                                 }
-                                                
-                                                // connectionType === "wifi" || JSON.parse(parsed).children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                             }
                                             }
                                         >
