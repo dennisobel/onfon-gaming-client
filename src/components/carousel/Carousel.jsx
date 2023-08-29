@@ -26,8 +26,14 @@ const Carousel = ({ title, games }) => {
     const [parsed, setParsed] = useState()
 
     useEffect(() => {
-        console.log(games)
-        fetchData();
+
+        const timer = setTimeout(() => {
+            fetchData();
+        }, 1500); // Adjust the delay time (in milliseconds) as needed
+
+        return () => {
+            clearTimeout(timer); // Clear the timer if the component unmounts before the timer completes
+        };
     }, []);
 
     // console.log("PARSED:",parsed)
@@ -35,14 +41,7 @@ const Carousel = ({ title, games }) => {
         const res = await axios.get("https://api.ipify.org/?format=json");
         let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
         const parsedData = new XMLParser().parseFromString(headerRes);
-        parsedData["ip"] = res.data.ip;
-        // await dispatch(setParsed(JSON.stringify(parsedData)));
         setParsed(parsedData)
-        // console.log("PARSED:", parsedData)
-        // console.log(parsedData.children[0].children[0].children[0].children[1].value)
-        // if(connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999"){
-        //     handleModalOpen()
-        // }
     };
 
     const handleModalOpen = () => {
@@ -62,11 +61,11 @@ const Carousel = ({ title, games }) => {
             }
         };
 
-        if(!navigator.userAgent.toLowerCase().includes("mozilla")){
+        if (!navigator.userAgent.toLowerCase().includes("mozilla")) {
             updateConnectionType();
 
             navigator.connection.addEventListener('change', updateConnectionType);
-    
+
             return () => {
                 navigator.connection.removeEventListener('change', updateConnectionType);
             };
@@ -154,7 +153,7 @@ const Carousel = ({ title, games }) => {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Please switch to safaricom mobile data to continue
+                            Please switch to safaricom mobile data to continue.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>
