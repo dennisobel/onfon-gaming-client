@@ -126,17 +126,33 @@ function App() {
     //     }
     // }
 
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+
+
+
+
     const fetchData = async () => {
         const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
             pending: 'IP is pending',
             success: 'IP resolved 👌',
             error: 'IP rejected 🤯'
         });
-        const headerRes = await toast.promise(axios.get("http://header.safaricombeats.co.ke/"), {
-            pending: 'Verification pending',
-            success: 'Verification resolved 👌',
-            error: 'Verification rejected 🤯'
+
+        const url = isMobileDevice() ? "http://header.safaricombeats.co.ke/" : "https://header.safaricombeats.co.ke/";
+
+        await toast.promise(axios.get(url), {
+          pending: 'Verification pending',
+          success: 'Verification resolved 👌',
+          error: 'Verification rejected 🤯'
         });
+        
+        // const headerRes = await toast.promise(axios.get("http://header.safaricombeats.co.ke/"), {
+        //     pending: 'Verification pending',
+        //     success: 'Verification resolved 👌',
+        //     error: 'Verification rejected 🤯'
+        // });
 
         // console.log("headerRes:", headerRes)
 
