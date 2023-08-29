@@ -85,7 +85,7 @@ function App() {
     }
 
     const checkSubscribed = async ({ msisdn, ip }) => {
-        let { data } = await axios.post('https://sub.epicgames.co.ke/check-subscribe', { msisdn }, {
+        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn }, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -101,7 +101,7 @@ function App() {
     }
 
     const subscribe = async ({ msisdn, ip }) => {
-        let res = await axios.post("https://sub.epicgames.co.ke/activate", {
+        let res = await axios.post("http://sub.epicgames.co.ke/activate", {
             msisdn,
             ip_address: ip,
             command: "subscribe",
