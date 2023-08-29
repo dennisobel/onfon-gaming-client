@@ -66,7 +66,7 @@ function App() {
     useEffect(() => {
         // console.log("connection type:",connectionType)
         if (connectionType === "wifi") {
-            handleModalOpen("Please switch to safaricom mobile data to continue.")
+            // handleModalOpen("Please switch to safaricom mobile data to continue.")
         } else if (connectionType === "cellular") {
         } else {
 
@@ -151,7 +151,7 @@ function App() {
         // console.log("parsedData:", parsedData)
         // console.log(parsedData.children[0].children[0].children[0].children[1].value)
         if (connectionType === "wifi" || parsedData.children[0].children[0].children[0].children[1].value === "999") {
-            handleModalOpen("Please switch to safaricom mobile data to continue.")
+            handleModalOpen("Please switch to safaricom mobile data to continue!")
         }
         // await gameRegister(parsedData).then().catch(err => console.log("err:", err));
     };
