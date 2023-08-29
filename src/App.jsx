@@ -130,13 +130,23 @@ function App() {
     }
 
     const fetchData = async () => {
-        const res = await axios.get("https://api.ipify.org/?format=json");
+
+        
+        const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"),{
+            pending: 'IP is pending',
+            success: 'IP resolved 👌',
+            error: 'IP rejected 🤯'
+          });
         // let headerRes = await fetch("https://header.safaricombeats.co.ke/")
-        const headerRes = await axios.get("https://header.safaricombeats.co.ke/", {
+        const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/", {
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
             },
-        });
+        }),{
+            pending: 'Headers pending',
+            success: 'Headers resolved 👌',
+            error: 'Headers rejected 🤯'
+          });
 
         console.log("headerRes:", headerRes)
 
