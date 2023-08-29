@@ -74,7 +74,7 @@ function App() {
         let headerRes = await fetch("https://header.safaricombeats.co.ke/").then(res => res.text())
         const parsedData = new XMLParser().parseFromString(headerRes);
         parsedData["ip"] = res.data.ip;
-        // await dispatch(setParsed(JSON.stringify(parsedData)));
+        dispatch(setParsed(JSON.stringify(parsedData)));
         // setParsed(parsedData)
         console.log("parsedData:", parsedData)
         console.log(parsedData.children[0].children[0].children[0].children[1].value)
@@ -106,7 +106,7 @@ function App() {
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
-                            Please switch to safaricom mobile data to continue
+                            Please switch to safaricom mobile data to continue.
                         </DialogContentText>
                     </DialogContent>
                     <DialogActions>

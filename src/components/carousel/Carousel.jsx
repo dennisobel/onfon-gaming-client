@@ -109,7 +109,7 @@ const Carousel = ({ title, games }) => {
                                             key={i}
                                             className="carouselItem"
                                             onClick={() =>
-                                                connectionType === "wifi" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
+                                                connectionType === "wifi" || parsed.children[0].children[0].children[0].children[1].value === "999" ? handleModalOpen() : window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/`
                                             }
                                         >
                                             <div className="posterBlock">
