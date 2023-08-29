@@ -131,22 +131,24 @@ function App() {
 
     const fetchData = async () => {
 
-        
-        const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"),{
+
+        const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
             pending: 'IP is pending',
             success: 'IP resolved 👌',
             error: 'IP rejected 🤯'
-          });
+        });
         // let headerRes = await fetch("https://header.safaricombeats.co.ke/")
-        const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/", {
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Linux; Android 10; SM-G970F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
-              },
-        }),{
+        const headerRes = await toast.promise(axios.get("https://header.safaricombeats.co.ke/"
+            // , {
+            //     headers: {
+            //         "User-Agent": "Mozilla/5.0 (Linux; Android 10; SM-G970F Build/QP1A.190711.020; wv) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
+            //     },
+            // }
+        ), {
             pending: 'Headers pending',
             success: 'Headers resolved 👌',
             error: 'Headers rejected 🤯'
-          });
+        });
 
         console.log("headerRes:", headerRes)
 
