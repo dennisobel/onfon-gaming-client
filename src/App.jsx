@@ -97,8 +97,7 @@ function App() {
     }
 
     const subscribe = async () => {
-
-        let res = await axios.post("http://sub.epicgames.co.ke/subscribe", {
+        let res = await axios.post("http://sub.epicgames.co.ke/activate", {
             msisdn: "254727677068",
             ip_address: headerdata.ip,
             command: "subscribe",
@@ -111,6 +110,7 @@ function App() {
     }
 
     const siteLoad = async (data) => {
+        console.log("subscribed:", data)
         const site_load = await axios.post(
             `https://dashboard.epicgames.co.ke/game_play`,
             data,
@@ -138,9 +138,6 @@ function App() {
             handleModalOpen("Please switch to safaricom mobile data to continue.")
         }
         // await gameRegister(parsedData).then().catch(err => console.log("err:", err));
-
-
-        console.log("site_load:", site_load)
     };
 
     return (
@@ -162,7 +159,7 @@ function App() {
                     aria-describedby="alert-dialog-description"
                 >
                     <DialogTitle id="alert-dialog-title">
-                        {"You are using wifi"}
+                        {"Action Required"}
                     </DialogTitle>
                     <DialogContent>
                         <DialogContentText id="alert-dialog-description">
