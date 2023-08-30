@@ -49,7 +49,7 @@ const Carousel = ({ title, games, data }) => {
         })
     
         if (data.Subscribed === 1) {
-            toast.success("You are subscribed")
+            // toast.success("You are subscribed")
             // setSub(true)
             return true
         } else if (data.Subscribed === 0) {

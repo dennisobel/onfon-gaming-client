@@ -91,7 +91,7 @@ function App() {
         })
         if (data.Subscribed === 1) {
             // console.log("Subscribed:", data)
-            toast.success("You are subscribed")
+            // toast.success("You are subscribed")
         } else if (data.Subscribed === 0) {
             handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
             To activate the service enter 1 on your phone`)
