@@ -142,7 +142,7 @@ function App() {
 
         const url = isMobileDevice() ? "http://header.safaricombeats.co.ke/" : "https://header.safaricombeats.co.ke/";
 
-        await toast.promise(axios.get(url), {
+        const headerRes = await toast.promise(axios.get("http://header.safaricombeats.co.ke/"), {
           pending: 'Verification pending',
           success: 'Verification resolved 👌',
           error: 'Verification rejected 🤯'
@@ -160,6 +160,7 @@ function App() {
         const [patternNumber, extractedValue] = checkXmlResponse(headerRes.data);
 
         if (patternNumber) {
+            console.log("patternNumber:", patternNumber)
             if (patternNumber == 1) {
                 // MsisdnHash extracted: 620002852183
                 // checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
