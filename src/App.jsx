@@ -72,7 +72,7 @@ function App() {
 
     const siteLoad = async (data) => {
         const site_load = await axios.post(
-            `https://dashboard.epicgames.co.ke/game_play`,
+            `http://dashboard.epicgames.co.ke/game_play`,
             // `http://localhost:8080/game_play`,
             data,
             {
