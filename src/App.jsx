@@ -134,11 +134,11 @@ function App() {
 
 
     const fetchData = async () => {
-        const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
-            pending: 'IP is pending',
-            success: 'IP resolved 👌',
-            error: 'IP rejected 🤯'
-        });
+        // const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
+        //     pending: 'IP is pending',
+        //     success: 'IP resolved 👌',
+        //     error: 'IP rejected 🤯'
+        // });
 
         const url = isMobileDevice() ? "http://header.safaricombeats.co.ke/" : "https://header.safaricombeats.co.ke/";
 
@@ -162,8 +162,8 @@ function App() {
         if (patternNumber) {
             if (patternNumber == 1) {
                 // MsisdnHash extracted: 620002852183
-                checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
-                // checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" })
+                // checkSubscribed({ msisdn: extractedValue, ip: res.data.ip })
+                checkSubscribed({ msisdn: extractedValue, ip: "8.8.8.8" })
             } else if (patternNumber == 2) {
                 // Prompt user to use cellular data: 999
                 handleModalOpen("Please switch to safaricom mobile data to continue.")
@@ -174,7 +174,7 @@ function App() {
         }
         setHeaderdata(headerRes.data)
         dispatch(setParsed(headerRes.data))
-        dispatch(setIP(res.data.ip))
+        // dispatch(setIP(res.data.ip))
 
         // const parsedData = new XMLParser().parseFromString(headerRes.data);
         // parsedData["ip"] = res.data.ip;

@@ -125,11 +125,11 @@ const Carousel = ({ title, games, data }) => {
                                             onClick={() => {
                                                 if (patternNumber) {
                                                     console.log("patternNumber:", patternNumber)
-                                                    if (patternNumber === 1) {
-                                                        checkSubscribed({ msisdn: extractedValue, ip })
-                                                        console.log("sub:", sub)                                                        
+                                                    if (patternNumber === 1) {                                                        
+                                                        // checkSubscribed({ msisdn: extractedValue, ip })
+                                                        checkSubscribed({ msisdn: extractedValue, ip:"8.8.8.8" })                 
                                                         // sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
-                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
+                                                        sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip: "8.8.8.8" })
                                                     } else if (patternNumber === 2) {
                                                         console.log("Prompt user to use cellular data:", extractedValue);
                                                         handleModalOpen("Please switch to safaricom mobile data to continue.");
