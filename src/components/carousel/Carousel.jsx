@@ -30,7 +30,7 @@ const Carousel = ({ title, games, data }) => {
     const [patternNumber, setPatternNumber] = useState()
     const [extractedValue, setExtractedValue] = useState()
     const [modalText, setModalText] = useState()
-    const [sub,setSub] = useState(false)
+    // const [sub,setSub] = useState(false)
 
     const handleModalOpen = (text) => {
         setModalText(text)
@@ -50,12 +50,14 @@ const Carousel = ({ title, games, data }) => {
     
         if (data.Subscribed === 1) {
             toast.success("You are subscribed")
-            setSub(true)
+            // setSub(true)
+            return true
         } else if (data.Subscribed === 0) {
             handleModalOpen(`You are about to subscribe to Onfon Gaming Service. This service charges ksh 10 per day.
             To activate the service enter 1 on the prompt`)
             // subscribe({ msisdn, ip })
-            setSub(false)
+            // setSub(false)
+            return false
         }
     }
 
@@ -127,7 +129,7 @@ const Carousel = ({ title, games, data }) => {
                                                     console.log("patternNumber:", patternNumber)
                                                     if (patternNumber === 1) {                                                        
                                                         // checkSubscribed({ msisdn: extractedValue, ip })
-                                                        checkSubscribed({ msisdn: extractedValue, ip:"8.8.8.8" })
+                                                        let sub = checkSubscribed({ msisdn: extractedValue, ip:"8.8.8.8" })
                                                         console.log("sub1:", sub)           
                                                         // sub === true ? window.location.href = `https://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip })
                                                         sub === true ? window.location.href = `http://api.epicgames.co.ke/${item?.homepage}/` : subscribe({ msisdn: extractedValue, ip: "8.8.8.8" })
