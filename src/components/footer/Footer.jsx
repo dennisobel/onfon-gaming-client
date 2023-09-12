@@ -11,10 +11,14 @@ import ContentWrapper from "../contentWrapper/ContentWrapper";
 import "./style.scss";
 
 const Footer = () => {
+    const handleUnsubscribe = () => {
+        
+    };
     return (
         <footer className="footer">
             <ContentWrapper>
                 <ul className="menuItems">
+                    <li className="menuItem" onClick={handleUnsubscribe}>Unsubscribe</li>
                     <li className="menuItem">Terms Of Use</li>
                     <li className="menuItem">Privacy-Policy</li>
                     <li className="menuItem">About</li>
