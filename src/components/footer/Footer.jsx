@@ -12,14 +12,21 @@ import "./style.scss";
 
 const Footer = () => {
     const handleUnsubscribe = () => {
-        
+
     };
+
+    let termsandconditions = 'termsandconditions.pdf'
     return (
         <footer className="footer">
             <ContentWrapper>
                 <ul className="menuItems">
                     <li className="menuItem" onClick={handleUnsubscribe}>Unsubscribe</li>
-                    <li className="menuItem">Terms Of Use</li>
+                    <li className="menuItem">
+                        <a
+                            href={`/public/${termsandconditions}`}
+                            download={termsandconditions}
+                        >
+                            Terms Of Use</a></li>
                     <li className="menuItem">Privacy-Policy</li>
                     <li className="menuItem">About</li>
                     <li className="menuItem">Blog</li>
