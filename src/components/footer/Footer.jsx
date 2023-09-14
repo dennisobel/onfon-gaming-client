@@ -23,8 +23,7 @@ const Footer = () => {
                     <li className="menuItem" onClick={handleUnsubscribe}>Unsubscribe</li>
                     <li className="menuItem">
                         <a
-                            href={`/public/${termsandconditions}`}
-                            download={termsandconditions}
+                            href="/terms" target="_blank"
                         >
                             Terms Of Use</a></li>
                     <li className="menuItem">Privacy-Policy</li>

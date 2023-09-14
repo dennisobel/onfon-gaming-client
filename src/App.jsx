@@ -23,6 +23,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import axiosRetry from 'axios-retry';
+import Terms from "./pages/terms/Terms";
 
 axiosRetry(axios, { retries: 10 });
 
@@ -191,8 +192,13 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home data={headerdata} />} />
                     <Route path="*" element={<PageNotFound />} />
+                    {/* <Route path="/terms" element={<Terms/>} /> */}
                 </Routes>
                 <Footer />
+                <Routes>
+                <Route path="/terms" element={<Terms/>} />
+                </Routes>
+                
             </BrowserRouter>
 
             <>
