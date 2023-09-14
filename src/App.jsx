@@ -10,7 +10,6 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const Home = React.lazy(() => import('./pages/home/Home'))
-const TermsAndConditions = React.lazy(() => import('./pages/terms/TermsAndConditions'))
 import PageNotFound from "./pages/404/PageNotFound";
 import axios from "axios";
 import XMLParser from 'react-xml-parser';
@@ -193,12 +192,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home data={headerdata} />} />
                     <Route path="*" element={<PageNotFound />} />
-                    <Route path="/terms" element={<TermsAndConditions/>} />
                 </Routes>
                 <Footer />
-                {/* <Routes>
-                <Route path="/terms" element={<TermsAndConditions/>} />
-                </Routes> */}
                 
             </BrowserRouter>
 
