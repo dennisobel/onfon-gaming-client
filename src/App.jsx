@@ -192,7 +192,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home data={headerdata} />} />
-                    <Route path="/terms" element={<Terms/>} />
+                    <Route path="/terms/" element={<Terms/>} />
                     <Route path="*" element={<PageNotFound />} />
                 </Routes>
                 <Footer />
