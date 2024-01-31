@@ -35,6 +35,14 @@ function App() {
     const [headerdata, setHeaderdata] = useState({})
     const [modalText, setModalText] = useState()
 
+     // Get the current URL
+  const currentURL = window.location.href;
+
+  // Get the domain from the URL
+  const domain = new URL(currentURL).hostname;
+
+  console.log("domain:", domain)
+
 
     const handleModalOpen = (text) => {
         setModalText(text)
@@ -86,7 +94,8 @@ function App() {
     }
 
     const checkSubscribed = async ({ msisdn, ip }) => {
-        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn }, {
+        console.log("dom1:", domain)
+        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn, domain }, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -103,11 +112,13 @@ function App() {
     }
 
     const subscribe = async ({ msisdn, ip }) => {
+        console.log("dom2:", domain)
         let res = await axios.post("http://sub.epicgames.co.ke/activate", {
             msisdn,
             ip_address: ip,
             command: "subscribe",
-            channel: "epicgames"
+            channel: "epicgames",
+            domain
         }, {
             headers: {
                 'Content-Type': 'application/json'
@@ -138,6 +149,7 @@ function App() {
 
 
     const fetchData = async () => {
+        console.log("dom:", domain)
         // const res = await toast.promise(axios.get("https://api.ipify.org/?format=json"), {
         //     pending: 'IP is pending',
         //     success: 'IP resolved 👌',
