@@ -31,7 +31,8 @@ const Carousel = ({ title, games, data }) => {
     const [extractedValue, setExtractedValue] = useState()
     const [modalText, setModalText] = useState()
     // const [sub,setSub] = useState(false)
-
+    const currentURL = window.location.href;
+    const domain = new URL(currentURL).hostname;
     const handleModalOpen = (text) => {
         setModalText(text)
         setModalOpen(true)
@@ -42,7 +43,7 @@ const Carousel = ({ title, games, data }) => {
     }
 
     const checkSubscribed = async ({ msisdn, ip }) => {
-        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn }, {
+        let { data } = await axios.post('http://sub.epicgames.co.ke/check-subscribe', { msisdn, domain }, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -66,7 +67,8 @@ const Carousel = ({ title, games, data }) => {
             msisdn,
             ip_address: ip,
             command: "subscribe",
-            channel: "epicgames"
+            channel: "epicgames",
+            domain
         }, {
             headers: {
                 'Content-Type': 'application/json'
